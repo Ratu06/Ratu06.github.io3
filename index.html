@@ -1,179 +1,293 @@
-<!DOCTYPE html><html lang="id">
+<!DOCTYPE html>
+<html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resume Materi Sesi 3 OOP Dart</title><style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Sesi 2: Konstruktor & Enkapsulasi - Dart</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; max-width: 1000px; margin: 0 auto; padding: 20px; background-color: #f0f2f5; }
+        header { background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%); color: white; padding: 40px; border-radius: 15px; text-align: center; margin-bottom: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+        h2 { color: #1e3c72; border-left: 6px solid #1e3c72; padding-left: 15px; margin-top: 35px; background: #e7eaf0; padding: 10px 15px; border-radius: 0 5px 5px 0; }
+        .card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); margin-bottom: 30px; }
+        .profile-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+        .profile-table td { padding: 12px; border-bottom: 1px solid #eee; }
+        .profile-table td:first-child { font-weight: bold; width: 25%; color: #1e3c72; }
+        nav { background: white; padding: 15px; border-radius: 10px; margin-bottom: 25px; position: sticky; top: 10px; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); display: flex; justify-content: space-around; flex-wrap: wrap; }
+        nav a { color: #1e3c72; text-decoration: none; font-weight: bold; padding: 5px 10px; }
+        nav a:hover { background: #1e3c72; color: white; border-radius: 5px; }
+        
+        /* Styling untuk tombol preview */
+        .btn-preview {
+            background: #1e3c72;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: background 0.3s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            margin-top: 10px;
+        }
+        .btn-preview:hover {
+            background: #2a5298;
+        }
+        
+        /* Modal (popup) */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 1000px;
+            height: 80%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #1e3c72;
+        }
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.3em;
+        }
+        .close {
+            font-size: 32px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #888;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+        .close:hover {
+            color: #1e3c72;
+        }
+        .modal-body {
+            flex: 1;
+            min-height: 0; /* penting agar iframe bisa scroll */
+        }
+        .modal-body iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            background: #f8fafc;
+        }
+        
+        .footer { text-align: center; margin-top: 50px; padding: 30px; color: #666; font-size: 0.9em; border-top: 1px solid #ccc; }
+        .source-tag { font-size: 0.8em; color: #888; font-style: italic; display: block; margin-bottom: 10px; }
+        pre { background: #f4f4f4; padding: 15px; border-radius: 8px; overflow-x: auto; }
+    </style>
+</head>
+<body>
 
-body{
-font-family:Segoe UI;
-margin:0;
-background:linear-gradient(135deg,#0f172a,#1e3a8a,#2563eb);
-color:white;
-}
+<header>
+    <h1>Resume Sesi 2: Konstruktor & Enkapsulasi</h1>
+    <p>Dokumentasi Pemrograman Dart dengan Demo Interaktif DartPad</p>
+</header>
 
-header{
-text-align:center;
-padding:40px;
-}
+<section class="card" id="profil">
+    <h2>👤 Profil Mahasiswa</h2>
+    <table class="profile-table">
+        [span_0](start_span)<tr><td>Nama</td><td>[Isi Nama Anda][span_0](end_span)</td></tr>
+        [span_1](start_span)<tr><td>NIM</td><td>[Isi NIM Anda][span_1](end_span)</td></tr>
+        [span_2](start_span)<tr><td>Mata Kuliah</td><td>Pemrograman Berorientasi Objek[span_2](end_span)</td></tr>
+        [span_3](start_span)<tr><td>Topik</td><td>Konstruktor & Enkapsulasi[span_3](end_span)</td></tr>
+    </table>
+</section>
 
-.container{
-max-width:1000px;
-margin:auto;
-padding:20px;
-}
+<nav>
+    <a href="#konstruktor">Konstruktor</a>
+    <a href="#initializer">Initializer</a>
+    <a href="#private">Private Field</a>
+    <a href="#getter">Getter</a>
+    <a href="#setter">Setter</a>
+    <a href="#validasi">Validasi Produk</a>
+    <a href="#login">Sistem Login</a>
+    <a href="#tugas">Tugas Bank</a>
+</nav>
 
-.card{
-background:rgba(255,255,255,0.08);
-padding:25px;
-border-radius:15px;
-margin-bottom:25px;
-box-shadow:0 8px 20px rgba(0,0,0,0.3);
-}
+<!-- Bagian 1: Konstruktor -->
+<section class="card" id="konstruktor">
+    <h2>1. Implementasi Konstruktor (Class Mobil)</h2>
+    [span_4](start_span)[span_5](start_span)<span class="source-tag">Sumber Data: slide-2-datapendukungfix.txt[span_4](end_span)[span_5](end_span)</span>
+    [span_6](start_span)[span_7](start_span)<p>Mendemonstrasikan <em>Parameterized Constructor</em>, <em>Named Constructor</em>, dan penggunaan <code>jsonDecode</code>.[span_6](end_span)[span_7](end_span)</p>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=0cb668c399daf986b442f2d88312c2c0&theme=light">Lihat Program</button>
+</section>
 
-h2{
-color:#93c5fd;
-}
+<!-- Bagian 2: Constant Constructor -->
+<section class="card" id="initializer">
+    <h2>2. Constant Constructor (Class Warna)</h2>
+    [span_8](start_span)[span_9](start_span)<span class="source-tag">Sumber Data: slide-2-datapendukungfix.txt[span_8](end_span)[span_9](end_span)</span>
+    [span_10](start_span)<p>Penggunaan <code>const</code> pada konstruktor untuk efisiensi memori pada objek yang tidak berubah (immutable).[span_10](end_span)</p>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=1442491281e1f65e5de31dff964a4593&theme=light">Lihat Program</button>
+</section>
 
-pre{
-background:#1e293b;
-padding:15px;
-border-radius:8px;
-overflow:auto;
-}
+<!-- Bagian 3: Initializer List -->
+<section class="card">
+    <h2>3. Initializer List (Class Titik)</h2>
+    [span_11](start_span)<span class="source-tag">Sumber Data: slide-2-datapendukungfix.txt[span_11](end_span)</span>
+    [span_12](start_span)[span_13](start_span)<p>Menginisialisasi nilai sebelum body konstruktor dijalankan, seperti mengubah input menjadi nilai absolut.[span_12](end_span)[span_13](end_span)</p>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=8a98b6f2c12abaf21d8e6ecb928b35dc&theme=light">Lihat Program</button>
+</section>
 
-button{
-background:#3b82f6;
-border:none;
-padding:10px 18px;
-border-radius:8px;
-color:white;
-cursor:pointer;
-margin-top:10px;
-}
+<!-- Bagian 4: Private Members -->
+<section class="card" id="private">
+    <h2>4. Pengantar Private Members</h2>
+    [span_14](start_span)<span class="source-tag">Sumber Data: slide-2-datapendukungfix.txt[span_14](end_span)</span>
+    [span_15](start_span)[span_16](start_span)<p>Menggunakan <code>_</code> untuk menyembunyikan akses field dari luar file yang sama.[span_15](end_span)[span_16](end_span)</p>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=e36d57cf6b3f6848cbee7c19b5f91bd7&theme=light">Lihat Program</button>
+</section>
 
-button:hover{
-background:#2563eb;
-}
+<!-- Bagian 5: Getter -->
+<section class="card" id="getter">
+    <h2>5. Mengakses Data dengan Getter</h2>
+    [span_17](start_span)[span_18](start_span)<span class="source-tag">Sumber Data: slide-2-datapendukungfix.txt[span_17](end_span)[span_18](end_span)</span>
+    [span_19](start_span)<p>Getter memungkinkan kita membaca variabel private dengan sintaks yang bersih.[span_19](end_span)</p>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=5d7215e1bb6aa8a4e389ed3c1e57e12a&theme=light">Lihat Program</button>
+</section>
 
-.popup{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.85);
-justify-content:center;
-align-items:center;
-}
+<!-- Bagian 6: Setter -->
+<section class="card" id="setter">
+    <h2>6. Memperbarui Data dengan Setter</h2>
+    [span_20](start_span)[span_21](start_span)<span class="source-tag">Sumber Data: slide-2-datapendukungfix.txt[span_20](end_span)[span_21](end_span)</span>
+    [span_22](start_span)<p>Setter digunakan untuk mengubah nilai variabel private secara terkontrol.[span_22](end_span)</p>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=9cede0271b357d6e3247703e835a49a8&theme=light">Lihat Program</button>
+</section>
 
-.popup-content{
-background:white;
-width:90%;
-height:85%;
-border-radius:10px;
-padding:10px;
-}
+<!-- Bagian 7: Enkapsulasi Validasi -->
+<section class="card" id="validasi">
+    <h2>7. Enkapsulasi Lengkap dengan Validasi</h2>
+    [span_23](start_span)[span_24](start_span)<span class="source-tag">Sumber Data: slide-2-datapendukungfix.txt[span_23](end_span)[span_24](end_span)</span>
+    [span_25](start_span)<p>Contoh nyata validasi harga harus positif dan nama minimal 3 karakter.[span_25](end_span)</p>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=171980b5464cb1640666b4df5bf97199&theme=light">Lihat Program</button>
+</section>
 
-iframe{
-width:100%;
-height:90%;
-border:none;
-}
+<!-- Bagian 8: Sistem Login -->
+<section class="card" id="login">
+    <h2>8. Studi Kasus: Sistem Login User</h2>
+    [span_26](start_span)[span_27](start_span)<span class="source-tag">Sumber Data: slide-2-datapendukungfix.txt[span_26](end_span)[span_27](end_span)</span>
+    [span_28](start_span)[span_29](start_span)<p>Penerapan enkapsulasi pada kredensial login dan penggantian password dengan validasi panjang karakter.[span_28](end_span)[span_29](end_span)</p>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=79bd900c7e934b3b8040e8684b7242fd&theme=light">Lihat Program</button>
+</section>
 
-.close{
-background:red;
-margin-bottom:10px;
-}
-
-ul{
-line-height:1.8;
-}
-
-footer{
-text-align:center;
-padding:20px;
-color:#cbd5f5;
-}
-
-</style><script>
-
-function buka(link){
-document.getElementById("popup").style.display="flex";
-document.getElementById("frame").src=link;
-}
-
-function tutup(){
-document.getElementById("popup").style.display="none";
-document.getElementById("frame").src="";
-}
-
-</script></head><body><header>
-<h1>Resume Materi OOP Dart</h1>
-<p>Nama : Ratu Klarisa</p>
-<p>NIM : 251410010</p>
-<p>Mata Kuliah : Object Oriented Programming</p>
-</header><div class="container"><div class="card">
-<h2>Resume Materi Sesi 3</h2><p>
-Pada sesi ini dibahas mengenai constructor dan encapsulation pada bahasa pemrograman Dart.
-Constructor adalah method khusus yang digunakan untuk melakukan inisialisasi objek saat objek dibuat.
-</p><p>
-Dart memiliki berbagai jenis constructor seperti default constructor, named constructor,
-parameterized constructor, dan constant constructor.
-</p><p>
-Encapsulation merupakan teknik untuk melindungi data dengan menggunakan field private
-yang ditandai dengan underscore (_).
-</p><p>
-Akses terhadap data dilakukan melalui getter dan setter agar data lebih aman dan terkontrol.
-</p></div><div class="card">
-<h2>Slide 14 : Ringkasan</h2><ul>
-<li>Dart memiliki berbagai jenis constructor.</li>
-<li>Enkapsulasi melindungi data dengan private field.</li>
-<li>Getter dan setter memberikan kontrol akses yang aman.</li>
-</ul></div><div class="card">
-<h2>Bonus 2 - Soal 1</h2><pre>
+<!-- Bagian 9: Latihan Mandiri (tetap sebagai kode, bukan iframe) -->
+<section class="card" id="tugas">
+    <h2>🚀 Latihan Mandiri: Rekening Bank</h2>
+    [span_30](start_span)<span class="source-tag">Instruksi Slide 14[span_30](end_span)</span>
+    [span_31](start_span)<p>Membuat kelas <code>RekeningBank</code> dengan field <code>_saldo</code> dan method <code>tarik()</code> yang memvalidasi sisa saldo tidak boleh negatif.[span_31](end_span)</p>
+    <pre><code>
+// Kode Tugas RekeningBank Anda
 class RekeningBank {
+  String _nomorRekening;
+  double _saldo;
 
- String _nomorRekening;
- double _saldo;
+  RekeningBank(this._nomorRekening, this._saldo);
 
- RekeningBank(this._nomorRekening,this._saldo);
-
- void deposit(double jumlah){
-  _saldo += jumlah;
- }
-
- void tarik(double jumlah){
-  if(jumlah <= _saldo){
-   _saldo -= jumlah;
-  }else{
-   print("Saldo tidak cukup");
+  void deposit(double jml) { if (jml > 0) _saldo += jml; }
+  
+  void tarik(double jml) {
+    if (jml > 0 && _saldo >= jml) {
+      _saldo -= jml;
+      print('Tarik berhasil.');
+    } else {
+      print('Saldo tidak cukup.');
+    }
   }
- }
 
- void cekSaldo(){
-  print("Saldo saat ini : $_saldo");
- }
-
+  void cekSaldo() => print('Saldo: $_saldo');
 }
-</pre><button onclick="buka('https://dartpad.dev/embed-inline.html?id=0cb668c399daf986b442f2d88312c2c0&run=true')">
-Buka DartPad
-</button></div><div class="card">
-<h2>Bonus 3 - Soal 2</h2><pre>
-void main(){
+    </code></pre>
+</section>
 
- RekeningBank akun = RekeningBank("001",1000000);
+<!-- Modal Popup untuk iframe -->
+<div id="iframeModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 id="modalTitle">Program</h3>
+            <span class="close" id="closeModal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <iframe id="modalIframe" src="" title="Program Preview"></iframe>
+        </div>
+    </div>
+</div>
 
- akun.deposit(500000);
- akun.tarik(300000);
- akun.cekSaldo();
+<div class="footer">
+    <p>Resume Sesi 2 - Pemrograman Berorientasi Objek | [span_32](start_span)[span_33](start_span)Dibuat berdasarkan Slide Materi[span_32](end_span)[span_33](end_span)</p>
+</div>
 
-}
-</pre><button onclick="buka('https://dartpad.dev/embed-inline.html?id=1442491281e1f65e5de31dff964a4593&run=true')">
-Buka DartPad
-</button></div></div><div id="popup" class="popup"><div class="popup-content"><button class="close" onclick="tutup()">Tutup</button>
+<script>
+    (function() {
+        // Elemen modal
+        const modal = document.getElementById('iframeModal');
+        const modalIframe = document.getElementById('modalIframe');
+        const closeBtn = document.getElementById('closeModal');
+        const modalTitle = document.getElementById('modalTitle');
 
-<iframe id="frame"></iframe></div></div><footer>
-2026 © Resume Materi OOP Dart
-</footer></body>
+        // Semua tombol preview
+        const previewButtons = document.querySelectorAll('.btn-preview');
+
+        // Fungsi buka modal
+        function openModal(src, title) {
+            modalIframe.src = src;
+            modalTitle.textContent = title;
+            modal.style.display = 'flex';
+        }
+
+        // Fungsi tutup modal
+        function closeModal() {
+            modal.style.display = 'none';
+            modalIframe.src = ''; // stop iframe
+        }
+
+        // Event listener untuk setiap tombol
+        previewButtons.forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                const src = this.dataset.src;
+                // Ambil judul dari h2 terdekat
+                const parentCard = this.closest('.card');
+                const title = parentCard.querySelector('h2').textContent;
+                openModal(src, title);
+            });
+        });
+
+        // Tombol close
+        closeBtn.addEventListener('click', closeModal);
+
+        // Klik di luar modal tutup
+        modal.addEventListener('click', function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Tekan ESC tutup modal
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && modal.style.display === 'flex') {
+                closeModal();
+            }
+        });
+    })();
+</script>
+
+</body>
 </html>
