@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="id">
+<!DOCTYPE html><html lang="id">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Resume Materi Sesi 3 OOP Dart</title>
-
-<style>
+<title>Resume Materi OOP Dart</title><style>
 
 body{
 font-family:Segoe UI;
@@ -44,154 +41,152 @@ border-radius:8px;
 overflow:auto;
 }
 
+button{
+background:#3b82f6;
+color:white;
+border:none;
+padding:10px 18px;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+background:#2563eb;
+}
+
+.popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.8);
+justify-content:center;
+align-items:center;
+}
+
+.popup-content{
+background:white;
+width:90%;
+height:85%;
+border-radius:10px;
+padding:10px;
+}
+
+iframe{
+width:100%;
+height:90%;
+border:none;
+}
+
+.close{
+background:red;
+color:white;
+margin-bottom:10px;
+}
+
 footer{
 text-align:center;
 padding:20px;
 color:#cbd5f5;
 }
 
-</style>
-</head>
+</style><script>
 
-<body>
+function buka(link){
+document.getElementById("popup").style.display="flex";
+document.getElementById("frame").src=link;
+}
 
-<header>
+function tutup(){
+document.getElementById("popup").style.display="none";
+document.getElementById("frame").src="";
+}
+
+</script></head><body><header>
 <h1>Resume Materi OOP Dart</h1>
 <p>Nama : Ratu Klarisa</p>
 <p>NIM : 251410010</p>
 <p>Mata Kuliah : Object Oriented Programming</p>
-</header>
-
-<div class="container">
-
-<div class="card">
-<h2>Resume Materi Sesi 3</h2>
-
-<p>
-Pada sesi ini dibahas mengenai constructor dan encapsulation pada bahasa pemrograman Dart.
-Constructor adalah method khusus yang digunakan untuk melakukan inisialisasi objek saat objek dibuat.
-</p>
-
-<p>
-Dart memiliki beberapa jenis constructor yaitu default constructor, named constructor, parameterized constructor, dan constant constructor.
-Constructor membantu mempermudah proses pemberian nilai awal pada atribut sebuah objek.
-</p>
-
-<p>
-Selain constructor, pada sesi ini juga dipelajari konsep encapsulation.
-Encapsulation adalah teknik untuk menyembunyikan data di dalam class agar tidak dapat diakses langsung dari luar class.
-</p>
-
-<p>
-Dalam Dart, encapsulation dilakukan dengan menggunakan tanda underscore (_) pada variabel sehingga variabel tersebut bersifat private.
-Untuk mengakses data private digunakan getter dan setter.
-</p>
-
-<p>
-Getter digunakan untuk membaca nilai dari variabel private sedangkan setter digunakan untuk mengubah nilai variabel tersebut dengan validasi tertentu.
-</p>
-
-<p>
-Dengan adanya encapsulation, keamanan data lebih terjaga karena akses terhadap data dapat dikontrol melalui method tertentu.
-</p>
-
-</div>
-
-<div class="card">
-<h2>Bonus 2 - Soal 1</h2>
-
-<p>Membuat class RekeningBank dengan method deposit, tarik, dan cek saldo.</p>
-
-<pre>
+</header><div class="container"><div class="card">
+<h2>Resume Materi</h2><p>
+Pada sesi ini dipelajari mengenai constructor dan encapsulation pada bahasa pemrograman Dart.
+Constructor adalah method khusus yang digunakan untuk menginisialisasi objek saat objek dibuat.
+</p><p>
+Dart memiliki beberapa jenis constructor seperti default constructor, named constructor,
+parameterized constructor, dan constant constructor.
+</p><p>
+Encapsulation adalah teknik untuk menyembunyikan data di dalam class menggunakan variabel private
+yang ditandai dengan underscore (_).
+</p><p>
+Untuk mengakses data private digunakan getter dan setter sehingga data dapat diatur dan divalidasi.
+</p></div><div class="card">
+<h2>Bonus Soal 1 - Class RekeningBank</h2><pre>
 class RekeningBank {
 
-  String _nomorRekening;
-  double _saldo;
+ String _nomorRekening;
+ double _saldo;
 
-  RekeningBank(this._nomorRekening,this._saldo);
+ RekeningBank(this._nomorRekening,this._saldo);
 
-  void deposit(double jumlah){
-    _saldo += jumlah;
+ void deposit(double jumlah){
+  if(jumlah > 0){
+   _saldo += jumlah;
+   print("Deposit berhasil");
   }
+ }
 
-  void tarik(double jumlah){
-    if(jumlah <= _saldo){
-      _saldo -= jumlah;
-    }else{
-      print("Saldo tidak cukup");
-    }
+ void tarik(double jumlah){
+  if(jumlah <= _saldo){
+   _saldo -= jumlah;
+   print("Penarikan berhasil");
+  }else{
+   print("Saldo tidak cukup");
   }
+ }
 
-  void cekSaldo(){
-    print("Saldo saat ini : $_saldo");
-  }
+ void cekSaldo(){
+  print("Saldo saat ini: $_saldo");
+ }
 
 }
-
+</pre><button onclick="buka('https://dartpad.dev/embed-inline.html?id=0cb668c399daf986b442f2d88312c2c0&run=true')">
+Lihat Program
+</button></div><div class="card">
+<h2>Bonus Soal 2 - Simulasi Transaksi</h2><pre>
 void main(){
 
-  RekeningBank rekening = RekeningBank("12345",500000);
+ RekeningBank rekening = RekeningBank("12345",1000000);
 
-  rekening.deposit(200000);
-  rekening.tarik(100000);
-  rekening.cekSaldo();
+ rekening.cekSaldo();
 
-}
-</pre>
+ rekening.deposit(500000);
 
-</div>
+ rekening.tarik(200000);
 
-<div class="card">
-<h2>Bonus 3 - Soal 2</h2>
-
-<p>Membuat program simulasi transaksi sederhana menggunakan class RekeningBank.</p>
-
-<pre>
-class RekeningBank {
-
-  String _nomorRekening;
-  double _saldo;
-
-  RekeningBank(this._nomorRekening,this._saldo);
-
-  void deposit(double jumlah){
-    _saldo += jumlah;
-    print("Deposit berhasil");
-  }
-
-  void tarik(double jumlah){
-    if(jumlah <= _saldo){
-      _saldo -= jumlah;
-      print("Penarikan berhasil");
-    }else{
-      print("Saldo tidak mencukupi");
-    }
-  }
-
-  void cekSaldo(){
-    print("Saldo : $_saldo");
-  }
+ rekening.cekSaldo();
 
 }
+</pre><button onclick="buka('https://dartpad.dev/embed-inline.html?id=1442491281e1f65e5de31dff964a4593&run=true')">
+Lihat Program
+</button></div><div class="card">
+<h2>Program Tambahan</h2><button onclick="buka('https://dartpad.dev/embed-inline.html?id=8a98b6f2c12abaf21d8e6ecb928b35dc&run=true')">
+Program 3
+</button><button onclick="buka('https://dartpad.dev/embed-inline.html?id=e36d57cf6b3f6848cbee7c19b5f91bd7&run=true')">
+Program 4
+</button><button onclick="buka('https://dartpad.dev/embed-inline.html?id=5d7215e1bb6aa8a4e389ed3c1e57e12a&run=true')">
+Program 5
+</button><button onclick="buka('https://dartpad.dev/embed-inline.html?id=9cede0271b357d6e3247703e835a49a8&run=true')">
+Program 6
+</button><button onclick="buka('https://dartpad.dev/embed-inline.html?id=171980b5464cb1640666b4df5bf97199&run=true')">
+Program 7
+</button><button onclick="buka('https://dartpad.dev/embed-inline.html?id=79bd900c7e934b3b8040e8684b7242fd&run=true')">
+Program 8
+</button></div></div><div id="popup" class="popup"><div class="popup-content"><button class="close" onclick="tutup()">Tutup</button>
 
-void main(){
-
-  RekeningBank akun = RekeningBank("001",1000000);
-
-  akun.deposit(500000);
-  akun.tarik(300000);
-  akun.cekSaldo();
-
-}
-</pre>
-
-</div>
-
-</div>
-
-<footer>
+<iframe id="frame"></iframe></div></div><footer>
 2026 © Resume Materi OOP Dart
-</footer>
-
-</body>
+</footer></body>
 </html>
