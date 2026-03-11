@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ratu klarisa · Sesi 2 Dart (iframe popup)</title>
+    <title>Ratu klarisa · Sesi 2 Dart (iframe + link DartPad)</title>
     <style>
         * {
             margin: 0;
@@ -216,6 +216,28 @@
             box-shadow: inset 0 0 0 1px #94a3b8;
         }
 
+        .link-dartpad {
+            margin-top: 0.8rem;
+            text-align: right;
+        }
+        .link-dartpad a {
+            background: #2563eb;
+            color: white;
+            padding: 0.4rem 1.2rem;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            border: 2px solid #1e40af;
+            transition: 0.2s;
+        }
+        .link-dartpad a:hover {
+            background: #1e40af;
+            transform: scale(1.03);
+        }
+
         .resume-summary {
             background: #e6f0ff;
             border-radius: 1.5rem;
@@ -250,15 +272,15 @@
         </button>
     </div>
 
-    <!-- GitHub link diperbarui -->
+    <!-- GitHub link sesuai permintaan -->
     <div class="github-link">
         🔗 <strong>GitHub repository:</strong> 
         <a href="https://ratu06.github.io/Ratu06.github.io3/" target="_blank">https://ratu06.github.io/Ratu06.github.io3/</a>
     </div>
-    <p style="text-align:center; color:#334155;">⬆️ Klik tombol di atas untuk melihat 8 contoh Dart interaktif (iframe) + ringkasan materi.</p>
+    <p style="text-align:center; color:#334155;">⬆️ Klik tombol di atas untuk melihat 8 contoh Dart interaktif (iframe) + ringkasan materi. Setiap kartu menyertakan link langsung ke DartPad.</p>
 </div>
 
-<!-- MODAL POPUP dengan iframe gallery -->
+<!-- MODAL POPUP dengan iframe gallery + link DartPad -->
 <div class="modal" id="modalPopup">
     <div class="modal-content">
         <div class="modal-header">
@@ -271,48 +293,72 @@
             <div class="iframe-card">
                 <h3>🚗 1. Mobil – Named constructor <span>#0cb668</span></h3>
                 <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=0cb668c399daf986b442f2d88312c2c0"></iframe>
+                <div class="link-dartpad">
+                    <a href="https://dartpad.dev/0cb668c399daf986b442f2d88312c2c0" target="_blank">🔗 Buka di DartPad</a>
+                </div>
             </div>
 
             <!-- Kartu 2: Warna (const constructor) -->
             <div class="iframe-card">
                 <h3>🎨 2. Warna – Constant constructor <span>#144249</span></h3>
                 <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=1442491281e1f65e5de31dff964a4593"></iframe>
+                <div class="link-dartpad">
+                    <a href="https://dartpad.dev/1442491281e1f65e5de31dff964a4593" target="_blank">🔗 Buka di DartPad</a>
+                </div>
             </div>
 
             <!-- Kartu 3: Titik (initializer list) -->
             <div class="iframe-card">
                 <h3>📍 3. Titik – Initializer list <span>#8a98b6</span></h3>
                 <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=8a98b6f2c12abaf21d8e6ecb928b35dc"></iframe>
+                <div class="link-dartpad">
+                    <a href="https://dartpad.dev/8a98b6f2c12abaf21d8e6ecb928b35dc" target="_blank">🔗 Buka di DartPad</a>
+                </div>
             </div>
 
             <!-- Kartu 4: Person private -->
             <div class="iframe-card">
                 <h3>👤 4. Person – private field <span>#e36d57</span></h3>
                 <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=e36d57cf6b3f6848cbee7c19b5f91bd7"></iframe>
+                <div class="link-dartpad">
+                    <a href="https://dartpad.dev/e36d57cf6b3f6848cbee7c19b5f91bd7" target="_blank">🔗 Buka di DartPad</a>
+                </div>
             </div>
 
             <!-- Kartu 5: Person with getter -->
             <div class="iframe-card">
                 <h3>🔍 5. Person – Getter style <span>#5d7215</span></h3>
                 <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=5d7215e1bb6aa8a4e389ed3c1e57e12a"></iframe>
+                <div class="link-dartpad">
+                    <a href="https://dartpad.dev/5d7215e1bb6aa8a4e389ed3c1e57e12a" target="_blank">🔗 Buka di DartPad</a>
+                </div>
             </div>
 
             <!-- Kartu 6: Person with setter -->
             <div class="iframe-card">
                 <h3>✏️ 6. Person – Setter & method <span>#9cede0</span></h3>
                 <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=9cede0271b357d6e3247703e835a49a8"></iframe>
+                <div class="link-dartpad">
+                    <a href="https://dartpad.dev/9cede0271b357d6e3247703e835a49a8" target="_blank">🔗 Buka di DartPad</a>
+                </div>
             </div>
 
             <!-- Kartu 7: Produk (getter/setter validasi) -->
             <div class="iframe-card">
                 <h3>📦 7. Produk – Validasi <span>#171980</span></h3>
                 <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=171980b5464cb1640666b4df5bf97199"></iframe>
+                <div class="link-dartpad">
+                    <a href="https://dartpad.dev/171980b5464cb1640666b4df5bf97199" target="_blank">🔗 Buka di DartPad</a>
+                </div>
             </div>
 
             <!-- Kartu 8: User (login & ganti password) -->
             <div class="iframe-card">
                 <h3>🔐 8. User – Login & ganti password <span>#79bd90</span></h3>
                 <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=79bd900c7e934b3b8040e8684b7242fd"></iframe>
+                <div class="link-dartpad">
+                    <a href="https://dartpad.dev/79bd900c7e934b3b8040e8684b7242fd" target="_blank">🔗 Buka di DartPad</a>
+                </div>
             </div>
 
             <!-- Bonus: Ringkasan + latihan RekeningBank (sebagai teks) -->
@@ -361,6 +407,5 @@
     });
 </script>
 
-<!-- catatan: semua iframe menggunakan embed-dart.html dengan ID dari link yang diberikan -->
 </body>
 </html>
