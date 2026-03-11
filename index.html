@@ -3,44 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ratu klarisa · Sesi 2 Dart (iframe + link DartPad)</title>
+    <title>Resume Sesi 2 · Ratu klarisa</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-
         body {
-            background: linear-gradient(145deg, #f1f5f9 0%, #e6edf7 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
             font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            padding: 1rem;
+            background: #f8fafc;
+            color: #1e293b;
+            line-height: 1.6;
+            padding: 2rem 1rem;
         }
-
-        .card {
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(8px);
-            max-width: 800px;
-            width: 100%;
-            border-radius: 3rem;
-            box-shadow: 0 30px 60px -20px #1e293b80, 0 0 0 1px #ffffff40 inset;
-            padding: 2.5rem 2rem;
-            border: 1px solid #cbd5e180;
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2.5rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            padding: 2.5rem;
         }
-
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(145deg, #2563eb, #7c3aed);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+            border-left: 10px solid #2563eb;
+            padding-left: 1.5rem;
+        }
         .identity {
             background: #1e1e2f;
             border-radius: 2rem;
             padding: 1.2rem 2rem;
-            margin-bottom: 2rem;
+            margin: 1.5rem 0 2.5rem 0;
             box-shadow: 0 10px 0 #0f172a;
             border: 1px solid #475569;
         }
-
         .identity pre {
             background: transparent;
             color: #facc15;
@@ -52,213 +54,109 @@
             white-space: pre-wrap;
             word-break: break-word;
         }
-
-        .btn-container {
-            display: flex;
-            justify-content: center;
-            margin: 2rem 0 1rem;
-        }
-
-        .popup-btn {
-            background: #0f172a;
-            color: white;
-            border: none;
-            padding: 1.2rem 3.5rem;
-            font-size: 1.5rem;
-            font-weight: 700;
-            border-radius: 60px;
-            cursor: pointer;
-            box-shadow: 0 15px 0 #020617, 0 10px 30px #2563eb80;
-            transition: all 0.1s ease;
-            border: 2px solid #facc15;
-            letter-spacing: 1px;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.8rem;
-        }
-
-        .popup-btn:active {
-            transform: translateY(8px);
-            box-shadow: 0 5px 0 #020617, 0 10px 20px #2563eb;
-        }
-
-        .github-link {
-            background: #f8fafc;
-            padding: 1rem 1.5rem;
-            border-radius: 60px;
-            margin: 1.5rem 0 0.5rem;
-            text-align: center;
-            border: 2px dashed #2563eb;
-            font-size: 1.1rem;
-        }
-
-        .github-link a {
-            color: #0f172a;
-            font-weight: bold;
-            text-decoration: none;
-            background: #e2e8f0;
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
-        }
-
-        .github-link a:hover {
-            background: #2563eb;
-            color: white;
-        }
-
-        /* MODAL POPUP */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85);
-            backdrop-filter: blur(6px);
-            align-items: center;
-            justify-content: center;
-            z-index: 999;
-        }
-
-        .modal-content {
-            background: #1e293b;
-            width: 98vw;
-            height: 96vh;
-            border-radius: 2.5rem;
-            box-shadow: 0 30px 60px #000, 0 0 0 4px #facc15 inset;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-            border: 2px solid white;
-        }
-
-        .modal-header {
-            background: #0f172a;
-            padding: 0.8rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: white;
-            border-bottom: 3px solid #facc15;
-            flex-shrink: 0;
-        }
-
-        .modal-header h2 {
-            font-size: 1.8rem;
-            background: linear-gradient(135deg, #facc15, #ffd966);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin: 0;
-            border: none;
-        }
-
-        .close-btn {
-            background: #dc2626;
-            color: white;
-            border: none;
-            width: 3rem;
-            height: 3rem;
-            border-radius: 50%;
+        h2 {
             font-size: 2rem;
-            font-weight: bold;
-            cursor: pointer;
-            box-shadow: 0 5px 0 #7f1d1d;
-            transition: 0.1s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-btn:active {
-            transform: translateY(4px);
-            box-shadow: 0 1px 0 #7f1d1d;
-        }
-
-        .iframe-gallery {
-            flex: 1;
-            overflow-y: auto;
-            padding: 1.5rem 2rem;
-            background: #f1f5f9;
-            display: flex;
-            flex-direction: column;
-            gap: 2rem;
-        }
-
-        .iframe-card {
-            background: white;
-            border-radius: 1.5rem;
-            padding: 1.2rem;
-            box-shadow: 0 10px 20px -10px #1e293b;
-            border: 2px solid #cbd5e1;
-        }
-
-        .iframe-card h3 {
-            margin: 0 0 0.5rem 0;
+            margin: 2.5rem 0 1rem 0;
+            border-bottom: 4px solid #e2e8f0;
+            padding-bottom: 0.5rem;
             color: #0f172a;
+        }
+        h3 {
+            font-size: 1.6rem;
+            margin: 2rem 0 1rem 0;
+            color: #334155;
+        }
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        .card {
+            background: #f1f5f9;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 1px solid #cbd5e1;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 30px -10px #2563eb50;
+        }
+        .card h4 {
             font-size: 1.4rem;
+            margin-bottom: 0.5rem;
+            color: #1e40af;
             display: flex;
             align-items: center;
             gap: 0.5rem;
         }
-
-        .iframe-card h3 span {
+        .card p {
+            margin: 0.5rem 0 1rem 0;
+            color: #334155;
+        }
+        .btn-link {
+            display: inline-block;
             background: #2563eb;
             color: white;
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
-            font-size: 0.9rem;
-        }
-
-        .dart-embed {
-            width: 100%;
-            height: 380px;
-            border: none;
-            border-radius: 1rem;
-            background: #f8fafc;
-            box-shadow: inset 0 0 0 1px #94a3b8;
-        }
-
-        .link-dartpad {
-            margin-top: 0.8rem;
-            text-align: right;
-        }
-        .link-dartpad a {
-            background: #2563eb;
-            color: white;
-            padding: 0.4rem 1.2rem;
+            font-weight: 600;
+            padding: 0.6rem 1.2rem;
             border-radius: 40px;
             text-decoration: none;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
             border: 2px solid #1e40af;
-            transition: 0.2s;
+            transition: all 0.2s;
         }
-        .link-dartpad a:hover {
+        .btn-link:hover {
             background: #1e40af;
-            transform: scale(1.03);
         }
-
-        .resume-summary {
-            background: #e6f0ff;
-            border-radius: 1.5rem;
+        pre {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1.2rem;
+            border-radius: 1.2rem;
+            overflow-x: auto;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+            margin: 1.5rem 0;
+        }
+        .keyword { color: #ff79c6; }
+        .string { color: #f1fa8c; }
+        .comment { color: #6272a4; }
+        .output {
+            background: #1e293b;
+            color: #a5f3fc;
+            padding: 1rem;
+            border-radius: 1rem;
+            border-left: 5px solid #10b981;
+            margin: 1rem 0;
+            font-family: monospace;
+        }
+        .github-box {
+            background: #ecfdf5;
+            border-radius: 2rem;
             padding: 1.5rem;
-            border: 2px solid #2563eb;
+            border: 3px solid #10b981;
+            text-align: center;
+            margin: 3rem 0 1rem;
         }
-
-        .resume-summary h4 {
-            font-size: 1.8rem;
-            color: #1e40af;
-            margin-bottom: 1rem;
+        .github-box a {
+            color: #065f46;
+            font-weight: bold;
+            font-size: 1.3rem;
+            word-break: break-all;
         }
-
-        @media (max-width: 700px) {
-            .modal-header h2 { font-size: 1.2rem; }
-            .iframe-card h3 { font-size: 1.2rem; }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #64748b;
         }
     </style>
 </head>
 <body>
-<div class="card">
+<div class="container">
+    <h1>🚀 SESI 2: KONSTRUKTOR & ENKAPSULASI</h1>
+    
     <!-- Identitas -->
     <div class="identity">
         <pre>// Nama   : Ratu klarisa
@@ -266,146 +164,305 @@
 // Kelas  : Si2A</pre>
     </div>
 
-    <div class="btn-container">
-        <button class="popup-btn" id="bukaPopup">
-            <span style="font-size:2rem;">📂</span> BUKA RESUME + DARTPAD
-        </button>
-    </div>
+    <!-- Ringkasan Materi dari PDF -->
+    <h2>📚 Ringkasan Materi (Slide 1–14)</h2>
+    
+    <h3>🔁 Review Sesi 1</h3>
+    <p>OOP: kelas = blueprint, objek = instance. Constructor menginisialisasi objek.</p>
+    <pre><span class="keyword">class</span> Buku { 
+  String judul; 
+  Buku(<span class="keyword">this</span>.judul); 
+}</pre>
 
-    <!-- GitHub link sesuai permintaan -->
-    <div class="github-link">
-        🔗 <strong>GitHub repository:</strong> 
-        <a href="https://ratu06.github.io/Ratu06.github.io3/" target="_blank">https://ratu06.github.io/Ratu06.github.io3/</a>
-    </div>
-    <p style="text-align:center; color:#334155;">⬆️ Klik tombol di atas untuk melihat 8 contoh Dart interaktif (iframe) + ringkasan materi. Setiap kartu menyertakan link langsung ke DartPad.</p>
-</div>
+    <h3>🏗️ Jenis Constructor di Dart</h3>
+    <ul style="margin-left:2rem; font-size:1.1rem;">
+        <li><strong>Default Constructor:</strong> <code>ClassName()</code></li>
+        <li><strong>Named Constructor:</strong> <code>ClassName.name()</code></li>
+        <li><strong>Parameterized Constructor:</strong> <code>ClassName(this.param)</code></li>
+        <li><strong>Constant Constructor:</strong> <code>const ClassName()</code> (semua field final, immutable, hemat memori)</li>
+        <li><strong>Factory Constructor:</strong> (lanjutan)</li>
+    </ul>
 
-<!-- MODAL POPUP dengan iframe gallery + link DartPad -->
-<div class="modal" id="modalPopup">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>📘 SESI 2 · KONSTRUKTOR & ENKAPSULASI (dengan DartPad)</h2>
-            <button class="close-btn" id="tutupPopup">&times;</button>
+    <h3>📍 Named Constructor – Contoh Mobil</h3>
+    <pre><span class="keyword">import</span> 'dart:convert';
+
+<span class="keyword">class</span> Mobil {
+  String? merk;
+  <span class="keyword">int</span>? tahun;
+
+  Mobil(<span class="keyword">this</span>.merk, <span class="keyword">this</span>.tahun);               <span class="comment">// parameterized</span>
+  Mobil.baru() { merk = <span class="string">'Toyota'</span>; tahun = 2023; } <span class="comment">// named</span>
+  Mobil.dariJson(<span class="keyword">Map</span>&lt;String, <span class="keyword">dynamic</span>&gt; json) {
+    merk = json[<span class="string">'merk'</span>];
+    tahun = json[<span class="string">'tahun'</span>];
+  }
+
+  @override
+  String toString() => <span class="string">'Mobil{merk: $merk, tahun: $tahun}'</span>;
+}</pre>
+
+    <h3>🧊 Constant Constructor – Warna</h3>
+    <pre><span class="keyword">class</span> Warna {
+  <span class="keyword">final int</span> r, g, b;
+  <span class="keyword">const</span> Warna(<span class="keyword">this</span>.r, <span class="keyword">this</span>.g, <span class="keyword">this</span>.b);
+  @override String toString() => <span class="string">'Warna(r:$r, g:$g, b:$b)'</span>;
+}
+
+<span class="keyword">void</span> main() {
+  <span class="keyword">const</span> merah = Warna(255,0,0);
+  <span class="keyword">const</span> merahLagi = Warna(255,0,0); <span class="comment">// instance yang sama</span>
+  print(merah);
+  print(identical(merah, merahLagi)); <span class="comment">// true</span>
+}</pre>
+
+    <h3>⚙️ Initializer List – Titik</h3>
+    <pre><span class="keyword">class</span> Titik {
+  <span class="keyword">final double</span> x, y;
+  Titik(<span class="keyword">double</span> x, <span class="keyword">double</span> y)
+      : x = x.abs(), y = y.abs() {  <span class="comment">// inisialisasi sebelum body</span>
+    print(<span class="string">'Titik dibuat di ($x, $y)'</span>);
+  }
+}</pre>
+
+    <h2>🛡️ Enkapsulasi</h2>
+    <p><strong>Konsep:</strong> menyembunyikan detail implementasi. <strong>Tujuan:</strong> keamanan, kontrol akses, fleksibilitas. <br>Di Dart: gunakan <code>_</code> (underscore) untuk private member (berlaku per file).</p>
+
+    <h3>🔒 Public vs Private – Person</h3>
+    <pre><span class="keyword">class</span> Person {
+  String _name;   <span class="comment">// private</span>
+  <span class="keyword">int</span> age;        <span class="comment">// public</span>
+  Person(<span class="keyword">this</span>._name, <span class="keyword">this</span>.age);
+}</pre>
+
+    <h3>📥 Getter – membaca private</h3>
+    <pre><span class="keyword">class</span> Person {
+  String _name;
+  <span class="keyword">int</span> age;
+  Person(<span class="keyword">this</span>._name, <span class="keyword">this</span>.age);
+
+  String <span class="keyword">get</span> getName1 => _name;       <span class="comment">// getter style 1</span>
+  String getName() => _name;           <span class="comment">// method biasa</span>
+}</pre>
+
+    <h3>📤 Setter – modifikasi dengan validasi</h3>
+    <pre><span class="keyword">class</span> Person {
+  String _name;
+  <span class="keyword">int</span> age;
+  Person(<span class="keyword">this</span>._name, <span class="keyword">this</span>.age);
+
+  <span class="keyword">set</span> setName1(String name) => _name = name;
+  <span class="keyword">void</span> setName(String name) { _name = name; }
+}</pre>
+
+    <h3>✅ Produk – Getter/Setter dengan validasi</h3>
+    <pre><span class="keyword">class</span> Produk {
+  String _nama;
+  <span class="keyword">double</span> _harga;
+  Produk(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._harga);
+
+  String <span class="keyword">get</span> nama => _nama;
+  <span class="keyword">double</span> <span class="keyword">get</span> harga => _harga;
+
+  <span class="keyword">set</span> nama(String value) {
+    <span class="keyword">if</span> (value.length >= 3) _nama = value;
+    <span class="keyword">else</span> print(<span class="string">'Nama minimal 3 karakter'</span>);
+  }
+
+  <span class="keyword">set</span> harga(<span class="keyword">double</span> value) {
+    <span class="keyword">if</span> (value > 0) _harga = value;
+    <span class="keyword">else</span> print(<span class="string">'Harga harus > 0'</span>);
+  }
+}</pre>
+
+    <h3>🔐 Studi Kasus: User – Login & ganti password</h3>
+    <pre><span class="keyword">class</span> User {
+  String _username;
+  String _password;
+  User(<span class="keyword">this</span>._username, <span class="keyword">this</span>._password);
+
+  String <span class="keyword">get</span> username => _username;
+  <span class="keyword">bool</span> login(String username, String password) =>
+      _username == username && _password == password;
+
+  <span class="keyword">void</span> gantiPassword(String lama, String baru) {
+    <span class="keyword">if</span> (_password != lama) {
+      print(<span class="string">'Password lama salah'</span>);
+    } <span class="keyword">else if</span> (baru.length < 8) {
+      print(<span class="string">'Password baru minimal 8 karakter'</span>);
+    } <span class="keyword">else</span> {
+      _password = baru;
+      print(<span class="string">'Password berhasil diubah'</span>);
+    }
+  }
+}</pre>
+
+    <!-- Koleksi Link DartPad (8 contoh) -->
+    <h2>🔗 Contoh Kode Langsung di DartPad</h2>
+    <p>Klik tombol di bawah untuk membuka dan menjalankan kode secara interaktif:</p>
+    <div class="card-grid">
+        <div class="card">
+            <h4>🚗 1. Mobil (named constructor)</h4>
+            <p>Demonstrasi named constructor <code>.baru()</code> dan <code>.dariJson()</code>.</p>
+            <a class="btn-link" href="https://dartpad.dev/0cb668c399daf986b442f2d88312c2c0" target="_blank">Buka di DartPad</a>
         </div>
-        <div class="iframe-gallery" id="gallery">
+        <div class="card">
+            <h4>🎨 2. Warna (const constructor)</h4>
+            <p>Immutable object dengan const constructor, instance sama.</p>
+            <a class="btn-link" href="https://dartpad.dev/1442491281e1f65e5de31dff964a4593" target="_blank">Buka di DartPad</a>
+        </div>
+        <div class="card">
+            <h4>📍 3. Titik (initializer list)</h4>
+            <p>Initializer list untuk memastikan nilai absolut.</p>
+            <a class="btn-link" href="https://dartpad.dev/8a98b6f2c12abaf21d8e6ecb928b35dc" target="_blank">Buka di DartPad</a>
+        </div>
+        <div class="card">
+            <h4>👤 4. Person (private field)</h4>
+            <p>Field private <code>_name</code> tidak bisa diakses langsung.</p>
+            <a class="btn-link" href="https://dartpad.dev/e36d57cf6b3f6848cbee7c19b5f91bd7" target="_blank">Buka di DartPad</a>
+        </div>
+        <div class="card">
+            <h4>🔍 5. Person (getter style)</h4>
+            <p>Getter <code>getName1</code> dan method <code>getName()</code>.</p>
+            <a class="btn-link" href="https://dartpad.dev/5d7215e1bb6aa8a4e389ed3c1e57e12a" target="_blank">Buka di DartPad</a>
+        </div>
+        <div class="card">
+            <h4>✏️ 6. Person (setter & method)</h4>
+            <p>Setter <code>setName1</code> dan method <code>setName()</code>.</p>
+            <a class="btn-link" href="https://dartpad.dev/9cede0271b357d6e3247703e835a49a8" target="_blank">Buka di DartPad</a>
+        </div>
+        <div class="card">
+            <h4>📦 7. Produk (validasi)</h4>
+            <p>Setter dengan validasi panjang nama dan harga positif.</p>
+            <a class="btn-link" href="https://dartpad.dev/171980b5464cb1640666b4df5bf97199" target="_blank">Buka di DartPad</a>
+        </div>
+        <div class="card">
+            <h4>🔐 8. User (login & ganti password)</h4>
+            <p>Sistem login sederhana dengan validasi password.</p>
+            <a class="btn-link" href="https://dartpad.dev/79bd900c7e934b3b8040e8684b7242fd" target="_blank">Buka di DartPad</a>
+        </div>
+    </div>
 
-            <!-- Kartu 1: Mobil (Named constructor) -->
-            <div class="iframe-card">
-                <h3>🚗 1. Mobil – Named constructor <span>#0cb668</span></h3>
-                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=0cb668c399daf986b442f2d88312c2c0"></iframe>
-                <div class="link-dartpad">
-                    <a href="https://dartpad.dev/0cb668c399daf986b442f2d88312c2c0" target="_blank">🔗 Buka di DartPad</a>
-                </div>
-            </div>
+    <!-- Penyelesaian Soal Latihan 1 & 2 (RekeningBank) -->
+    <h2>🧪 Penyelesaian Soal Latihan 1 & 2 (RekeningBank)</h2>
+    <p><strong>Soal 1:</strong> Buat kelas <code>RekeningBank</code> dengan field private <code>_nomorRekening</code>, <code>_saldo</code>. Method: <code>deposit()</code>, <code>tarik()</code>, <code>cekSaldo()</code>. Validasi saldo tidak boleh negatif.</p>
+    <p><strong>Soal 2:</strong> Buat program sederhana simulasi transaksi.</p>
 
-            <!-- Kartu 2: Warna (const constructor) -->
-            <div class="iframe-card">
-                <h3>🎨 2. Warna – Constant constructor <span>#144249</span></h3>
-                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=1442491281e1f65e5de31dff964a4593"></iframe>
-                <div class="link-dartpad">
-                    <a href="https://dartpad.dev/1442491281e1f65e5de31dff964a4593" target="_blank">🔗 Buka di DartPad</a>
-                </div>
-            </div>
+    <h3>🏦 Kelas RekeningBank (lengkap)</h3>
+    <pre><span class="keyword">class</span> RekeningBank {
+  String _nomorRekening;
+  <span class="keyword">double</span> _saldo;
 
-            <!-- Kartu 3: Titik (initializer list) -->
-            <div class="iframe-card">
-                <h3>📍 3. Titik – Initializer list <span>#8a98b6</span></h3>
-                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=8a98b6f2c12abaf21d8e6ecb928b35dc"></iframe>
-                <div class="link-dartpad">
-                    <a href="https://dartpad.dev/8a98b6f2c12abaf21d8e6ecb928b35dc" target="_blank">🔗 Buka di DartPad</a>
-                </div>
-            </div>
+  RekeningBank(<span class="keyword">this</span>._nomorRekening, <span class="keyword">this</span>._saldo) {
+    <span class="keyword">if</span> (_saldo < 0) _saldo = 0; <span class="comment">// pastikan awal tidak negatif</span>
+  }
 
-            <!-- Kartu 4: Person private -->
-            <div class="iframe-card">
-                <h3>👤 4. Person – private field <span>#e36d57</span></h3>
-                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=e36d57cf6b3f6848cbee7c19b5f91bd7"></iframe>
-                <div class="link-dartpad">
-                    <a href="https://dartpad.dev/e36d57cf6b3f6848cbee7c19b5f91bd7" target="_blank">🔗 Buka di DartPad</a>
-                </div>
-            </div>
+  <span class="comment">// Getter (opsional)</span>
+  String <span class="keyword">get</span> nomorRekening => _nomorRekening;
+  <span class="keyword">double</span> <span class="keyword">get</span> saldo => _saldo;
 
-            <!-- Kartu 5: Person with getter -->
-            <div class="iframe-card">
-                <h3>🔍 5. Person – Getter style <span>#5d7215</span></h3>
-                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=5d7215e1bb6aa8a4e389ed3c1e57e12a"></iframe>
-                <div class="link-dartpad">
-                    <a href="https://dartpad.dev/5d7215e1bb6aa8a4e389ed3c1e57e12a" target="_blank">🔗 Buka di DartPad</a>
-                </div>
-            </div>
+  <span class="keyword">void</span> deposit(<span class="keyword">double</span> jumlah) {
+    <span class="keyword">if</span> (jumlah > 0) {
+      _saldo += jumlah;
+      print(<span class="string">'✔️ Deposit Rp$jumlah berhasil. Saldo sekarang: Rp$_saldo'</span>);
+    } <span class="keyword">else</span> {
+      print(<span class="string">'❌ Jumlah deposit harus positif.'</span>);
+    }
+  }
 
-            <!-- Kartu 6: Person with setter -->
-            <div class="iframe-card">
-                <h3>✏️ 6. Person – Setter & method <span>#9cede0</span></h3>
-                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=9cede0271b357d6e3247703e835a49a8"></iframe>
-                <div class="link-dartpad">
-                    <a href="https://dartpad.dev/9cede0271b357d6e3247703e835a49a8" target="_blank">🔗 Buka di DartPad</a>
-                </div>
-            </div>
+  <span class="keyword">void</span> tarik(<span class="keyword">double</span> jumlah) {
+    <span class="keyword">if</span> (jumlah <= 0) {
+      print(<span class="string">'❌ Jumlah tarik harus positif.'</span>);
+    } <span class="keyword">else if</span> (jumlah > _saldo) {
+      print(<span class="string">'❌ Saldo tidak mencukupi. Saldo: Rp$_saldo'</span>);
+    } <span class="keyword">else</span> {
+      _saldo -= jumlah;
+      print(<span class="string">'✔️ Tarik Rp$jumlah berhasil. Saldo sekarang: Rp$_saldo'</span>);
+    }
+  }
 
-            <!-- Kartu 7: Produk (getter/setter validasi) -->
-            <div class="iframe-card">
-                <h3>📦 7. Produk – Validasi <span>#171980</span></h3>
-                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=171980b5464cb1640666b4df5bf97199"></iframe>
-                <div class="link-dartpad">
-                    <a href="https://dartpad.dev/171980b5464cb1640666b4df5bf97199" target="_blank">🔗 Buka di DartPad</a>
-                </div>
-            </div>
+  <span class="keyword">void</span> cekSaldo() {
+    print(<span class="string">'💰 Saldo rekening $_nomorRekening : Rp$_saldo'</span>);
+  }
+}</pre>
 
-            <!-- Kartu 8: User (login & ganti password) -->
-            <div class="iframe-card">
-                <h3>🔐 8. User – Login & ganti password <span>#79bd90</span></h3>
-                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=79bd900c7e934b3b8040e8684b7242fd"></iframe>
-                <div class="link-dartpad">
-                    <a href="https://dartpad.dev/79bd900c7e934b3b8040e8684b7242fd" target="_blank">🔗 Buka di DartPad</a>
-                </div>
-            </div>
+    <h3>💻 Simulasi Transaksi (Soal 2)</h3>
+    <pre><span class="keyword">void</span> main() {
+  print(<span class="string">'========== SIMULASI TRANSAKSI BANK =========='</span>);
 
-            <!-- Bonus: Ringkasan + latihan RekeningBank (sebagai teks) -->
-            <div class="resume-summary">
-                <h4>📋 RINGKASAN MATERI & LATIHAN (SOAL 1 & 2)</h4>
-                <pre style="background:#0f172a; color:#e2e8f0; padding:1rem; border-radius:1rem; font-size:0.9rem; overflow-x:auto;">
-🏦 RekeningBank (field private _nomorRekening, _saldo)
-   • deposit(double jumlah)   — validasi > 0
-   • tarik(double jumlah)     — validasi saldo cukup & jumlah positif
-   • cekSaldo()
+  <span class="keyword">var</span> rek1 = RekeningBank(<span class="string">'001-234567-89'</span>, 500000);
+  <span class="keyword">var</span> rek2 = RekeningBank(<span class="string">'002-987654-32'</span>, 250000);
 
-💡 Contoh simulasi transaksi:
-  var rek1 = RekeningBank('001-234567-89', 500000);
+  print(<span class="string">'\n--- Data Awal ---'</span>);
+  rek1.cekSaldo();
+  rek2.cekSaldo();
+
+  print(<span class="string">'\n--- Transaksi Rekening 1 ---'</span>);
   rek1.deposit(200000);
   rek1.tarik(100000);
-  rek1.tarik(700000);   // gagal (saldo kurang)
+  rek1.tarik(700000);  <span class="comment">// gagal (saldo kurang)</span>
+  rek1.deposit(-50000); <span class="comment">// gagal (negatif)</span>
   rek1.cekSaldo();
 
-🔸 Enkapsulasi: field private (_), getter/setter untuk kontrol.
-🔸 Jenis constructor: default, named, parameterized, const, initializer list.
-🔸 const constructor menghemat memori untuk objek immutable.
-                </pre>
-                <p style="margin-top:1rem; font-weight:bold;">✅ Bonus 2 & 3 terselesaikan (Resume + Soal 1 & 2).</p>
-            </div>
-        </div>
+  print(<span class="string">'\n--- Transaksi Rekening 2 ---'</span>);
+  rek2.tarik(50000);
+  rek2.tarik(300000);  <span class="comment">// gagal</span>
+  rek2.deposit(1000000);
+  rek2.cekSaldo();
+
+  print(<span class="string">'\n--- Status Akhir ---'</span>);
+  rek1.cekSaldo();
+  rek2.cekSaldo();
+
+  print(<span class="string">'\n========== SIMULASI SELESAI =========='</span>);
+}</pre>
+
+    <h3>📋 Contoh Output</h3>
+    <div class="output">
+<pre>========== SIMULASI TRANSAKSI BANK ==========
+
+--- Data Awal ---
+💰 Saldo rekening 001-234567-89 : Rp500000.0
+💰 Saldo rekening 002-987654-32 : Rp250000.0
+
+--- Transaksi Rekening 1 ---
+✔️ Deposit Rp200000.0 berhasil. Saldo sekarang: Rp700000.0
+✔️ Tarik Rp100000.0 berhasil. Saldo sekarang: Rp600000.0
+❌ Saldo tidak mencukupi. Saldo: Rp600000.0
+❌ Jumlah deposit harus positif.
+💰 Saldo rekening 001-234567-89 : Rp600000.0
+
+--- Transaksi Rekening 2 ---
+✔️ Tarik Rp50000.0 berhasil. Saldo sekarang: Rp200000.0
+❌ Saldo tidak mencukupi. Saldo: Rp200000.0
+✔️ Deposit Rp1000000.0 berhasil. Saldo sekarang: Rp1200000.0
+💰 Saldo rekening 002-987654-32 : Rp1200000.0
+
+--- Status Akhir ---
+💰 Saldo rekening 001-234567-89 : Rp600000.0
+💰 Saldo rekening 002-987654-32 : Rp1200000.0</pre>
+    </div>
+
+    <!-- Ringkasan Akhir -->
+    <div style="background:#e6f0ff; border-radius:2rem; padding:1.5rem; margin:2rem 0;">
+        <h3 style="margin-top:0;">📌 Ringkasan (Slide 14)</h3>
+        <ul style="font-size:1.2rem;">
+            <li>✅ Dart memiliki berbagai jenis constructor: default, named, parameterized, constant, factory.</li>
+            <li>✅ Enkapsulasi melindungi data dengan private field (<code>_</code>).</li>
+            <li>✅ Getter & setter memberikan kontrol akses yang aman (bisa ditambah validasi).</li>
+            <li>✅ Latihan soal 1 & 2 (RekeningBank) telah diselesaikan dengan validasi saldo tidak negatif.</li>
+        </ul>
+    </div>
+
+    <!-- Tautan GitHub -->
+    <div class="github-box">
+        <p style="font-size:1.4rem; font-weight:bold; color:#065f46;">🌟 BONUS 2 & 3 – RESUME + SOAL 1 & 2</p>
+        <p>GitHub repository:</p>
+        <a href="https://ratu06.github.io/Ratu06.github.io3/" target="_blank">https://ratu06.github.io/Ratu06.github.io3/</a>
+    </div>
+
+    <div class="footer">
+        Disusun oleh Ratu klarisa · 251410010 · Si2A · Tugas Bonus Sesi 2
     </div>
 </div>
-
-<script>
-    const modal = document.getElementById('modalPopup');
-    const bukaBtn = document.getElementById('bukaPopup');
-    const tutupBtn = document.getElementById('tutupPopup');
-
-    bukaBtn.addEventListener('click', () => {
-        modal.style.display = 'flex';
-    });
-
-    tutupBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
-    });
-</script>
-
 </body>
 </html>
