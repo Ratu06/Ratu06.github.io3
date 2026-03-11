@@ -1,468 +1,791 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resume Sesi 2 · Ratu klarisa</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
-            background: #f8fafc;
-            color: #1e293b;
-            line-height: 1.6;
-            padding: 2rem 1rem;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 2.5rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            padding: 2.5rem;
-        }
-        h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            background: linear-gradient(145deg, #2563eb, #7c3aed);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 0.5rem;
-            border-left: 10px solid #2563eb;
-            padding-left: 1.5rem;
-        }
-        .identity {
-            background: #1e1e2f;
-            border-radius: 2rem;
-            padding: 1.2rem 2rem;
-            margin: 1.5rem 0 2.5rem 0;
-            box-shadow: 0 10px 0 #0f172a;
-            border: 1px solid #475569;
-        }
-        .identity pre {
-            background: transparent;
-            color: #facc15;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 1.2rem;
-            font-weight: 500;
-            text-shadow: 0 2px 0 #00000050;
-            margin: 0;
-            white-space: pre-wrap;
-            word-break: break-word;
-        }
-        h2 {
-            font-size: 2rem;
-            margin: 2.5rem 0 1rem 0;
-            border-bottom: 4px solid #e2e8f0;
-            padding-bottom: 0.5rem;
-            color: #0f172a;
-        }
-        h3 {
-            font-size: 1.6rem;
-            margin: 2rem 0 1rem 0;
-            color: #334155;
-        }
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        .card {
-            background: #f1f5f9;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border: 1px solid #cbd5e1;
-            transition: transform 0.2s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 30px -10px #2563eb50;
-        }
-        .card h4 {
-            font-size: 1.4rem;
-            margin-bottom: 0.5rem;
-            color: #1e40af;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .card p {
-            margin: 0.5rem 0 1rem 0;
-            color: #334155;
-        }
-        .btn-link {
-            display: inline-block;
-            background: #2563eb;
-            color: white;
-            font-weight: 600;
-            padding: 0.6rem 1.2rem;
-            border-radius: 40px;
-            text-decoration: none;
-            border: 2px solid #1e40af;
-            transition: all 0.2s;
-        }
-        .btn-link:hover {
-            background: #1e40af;
-        }
-        pre {
-            background: #0f172a;
-            color: #e2e8f0;
-            padding: 1.2rem;
-            border-radius: 1.2rem;
-            overflow-x: auto;
-            font-family: 'JetBrains Mono', 'Fira Code', monospace;
-            font-size: 0.9rem;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
-            margin: 1.5rem 0;
-        }
-        .keyword { color: #ff79c6; }
-        .string { color: #f1fa8c; }
-        .comment { color: #6272a4; }
-        .output {
-            background: #1e293b;
-            color: #a5f3fc;
-            padding: 1rem;
-            border-radius: 1rem;
-            border-left: 5px solid #10b981;
-            margin: 1rem 0;
-            font-family: monospace;
-        }
-        .github-box {
-            background: #ecfdf5;
-            border-radius: 2rem;
-            padding: 1.5rem;
-            border: 3px solid #10b981;
-            text-align: center;
-            margin: 3rem 0 1rem;
-        }
-        .github-box a {
-            color: #065f46;
-            font-weight: bold;
-            font-size: 1.3rem;
-            word-break: break-all;
-        }
-        .footer {
-            text-align: center;
-            margin-top: 3rem;
-            color: #64748b;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <title>Laporan OOP Dart - Sesi 2 (Konstruktor & Enkapsulasi)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(135deg, #0f172a, #1e3a8a, #2563eb);
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    header h1 {
+      font-size: 2.5em;
+      color: #93c5fd;
+    }
+
+    header p {
+      margin: 6px 0;
+      font-size: 1.1em;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .card {
+      background: rgba(255,255,255,0.08);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
+
+    .card h2 {
+      color: #bfdbfe;
+      margin-bottom: 15px;
+    }
+
+    pre {
+      background: #1e293b;
+      color: #e2e8f0;
+      padding: 15px;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.9em;
+      font-family: 'Courier New', monospace;
+      margin: 15px 0;
+      border: 1px solid #334155;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.5);
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      white-space: pre-wrap;
+      word-wrap: break-word;
+    }
+
+    .btn-preview {
+      background: #3b82f6;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1em;
+      font-weight: 500;
+      transition: background 0.3s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+      margin-top: 5px;
+    }
+
+    .btn-preview:hover {
+      background: #2563eb;
+      transform: translateY(-1px);
+    }
+
+    .btn-preview:active {
+      transform: translateY(0);
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #c7d2fe;
+      font-size: 0.9em;
+    }
+
+    /* Modal (popup) */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.85);
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 16px;
+      width: 90%;
+      max-width: 1000px;
+      height: 85%;
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+      color: #1e293b;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.3em;
+    }
+
+    .close {
+      font-size: 32px;
+      font-weight: bold;
+      cursor: pointer;
+      color: #64748b;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+
+    .close:hover {
+      color: #0f172a;
+    }
+
+    .modal-body {
+      flex: 1;
+      min-height: 0;
+    }
+
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 12px;
+      background: #f8fafc;
+    }
+  </style>
 </head>
 <body>
+
+<header>
+  <h1>KONSTRUKTOR & ENKAPSULASI</h1>
+  <p>Nama: Ratu Klarisa</p>
+  <p>NIM: 251410010</p>
+  <p>Kelas: SI2A</p>
+</header>
+
 <div class="container">
-    <h1>🚀 SESI 2: KONSTRUKTOR & ENKAPSULASI</h1>
-    
-    <!-- Identitas -->
-    <div class="identity">
-        <pre>// Nama   : Ratu klarisa
-// Nim    : 251410010
-// Kelas  : Si2A</pre>
-    </div>
 
-    <!-- Ringkasan Materi dari PDF -->
-    <h2>📚 Ringkasan Materi (Slide 1–14)</h2>
-    
-    <h3>🔁 Review Sesi 1</h3>
-    <p>OOP: kelas = blueprint, objek = instance. Constructor menginisialisasi objek.</p>
-    <pre><span class="keyword">class</span> Buku { 
-  String judul; 
-  Buku(<span class="keyword">this</span>.judul); 
-}</pre>
-
-    <h3>🏗️ Jenis Constructor di Dart</h3>
-    <ul style="margin-left:2rem; font-size:1.1rem;">
-        <li><strong>Default Constructor:</strong> <code>ClassName()</code></li>
-        <li><strong>Named Constructor:</strong> <code>ClassName.name()</code></li>
-        <li><strong>Parameterized Constructor:</strong> <code>ClassName(this.param)</code></li>
-        <li><strong>Constant Constructor:</strong> <code>const ClassName()</code> (semua field final, immutable, hemat memori)</li>
-        <li><strong>Factory Constructor:</strong> (lanjutan)</li>
+  <!-- ========== RINGKASAN MATERI SESI 2 (dari PDF) ========== -->
+  <div class="card">
+    <h2>📘 RINGKASAN MATERI: KONSTRUKTOR & ENKAPSULASI</h2>
+    <p><strong>Review Sesi 1:</strong> OOP adalah paradigma berfokus pada objek. Kelas = blueprint, objek = instance. Constructor digunakan untuk inisialisasi objek.</p>
+    <p><strong>Jenis Constructor di Dart:</strong></p>
+    <ul>
+      <li>Default Constructor: <code>ClassName()</code></li>
+      <li>Named Constructor: <code>ClassName.name()</code></li>
+      <li>Parameterized Constructor: <code>ClassName(this.param)</code></li>
+      <li>Constant Constructor: <code>const ClassName()</code> (semua field final, immutable, hemat memori)</li>
+      <li>Factory Constructor: (lanjutan)</li>
     </ul>
+    <p><strong>Enkapsulasi:</strong> Menyembunyikan detail implementasi dengan underscore <code>_</code>. Tujuan: keamanan, kontrol akses, fleksibilitas.</p>
+    <p><strong>Getter & Setter:</strong> Memberikan akses terkontrol ke field private, bisa ditambahi validasi.</p>
+   <Pre><code> class Buku {
+  String judul;
 
-    <h3>📍 Named Constructor – Contoh Mobil</h3>
-    <pre><span class="keyword">import</span> 'dart:convert';
+  // Constructor
+  Buku(this.judul);
 
-<span class="keyword">class</span> Mobil {
-  String? merk;
-  <span class="keyword">int</span>? tahun;
-
-  Mobil(<span class="keyword">this</span>.merk, <span class="keyword">this</span>.tahun);               <span class="comment">// parameterized</span>
-  Mobil.baru() { merk = <span class="string">'Toyota'</span>; tahun = 2023; } <span class="comment">// named</span>
-  Mobil.dariJson(<span class="keyword">Map</span>&lt;String, <span class="keyword">dynamic</span>&gt; json) {
-    merk = json[<span class="string">'merk'</span>];
-    tahun = json[<span class="string">'tahun'</span>];
+  // Method untuk menampilkan data buku
+  void tampilkanInfo() {
+    print("Judul buku: $judul");
   }
-
-  @override
-  String toString() => <span class="string">'Mobil{merk: $merk, tahun: $tahun}'</span>;
-}</pre>
-
-    <h3>🧊 Constant Constructor – Warna</h3>
-    <pre><span class="keyword">class</span> Warna {
-  <span class="keyword">final int</span> r, g, b;
-  <span class="keyword">const</span> Warna(<span class="keyword">this</span>.r, <span class="keyword">this</span>.g, <span class="keyword">this</span>.b);
-  @override String toString() => <span class="string">'Warna(r:$r, g:$g, b:$b)'</span>;
 }
 
-<span class="keyword">void</span> main() {
-  <span class="keyword">const</span> merah = Warna(255,0,0);
-  <span class="keyword">const</span> merahLagi = Warna(255,0,0); <span class="comment">// instance yang sama</span>
+void main() {
+  // Membuat objek dari class Buku
+  Buku buku1 = Buku("Belajar Dart");
+
+  // Memanggil method
+  buku1.tampilkanInfo();
+}</code></Pre>
+<button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=98eb574f8aba987e25de016db8285842">Lihat Program</button>
+  </div>
+
+  <!-- ========== PROGRAM 1 - 11 (sudah ada, diperbaiki NIM dan sedikit kode) ========== -->
+  <!-- Program 1 -->
+  <div class="card">
+    <h2>Named Constructor-Contoh Mobil</h2>
+    <p>Named constructor adalah constructor yang memiliki nama tambahan selain nama class. Constructor ini digunakan untuk membuat lebih dari
+       satu cara membuat objek dalam satu class sehingga proses inisialisasi bisa berbeda sesuai kebutuhan.</p>
+    <pre><code> //Nama: Ratu Klarisa Rahadianti
+//Nim: 251410010
+//Kelas: SI2A
+
+
+import 'dart:convert';
+
+class Mobil {
+  String? merk;
+  int? tahun;
+
+  // Parameterized constructor
+  Mobil(this.merk, this.tahun);
+
+  // Named constructor
+  Mobil.baru() {
+    merk = 'Toyota';
+    tahun = 2023;
+  }
+
+  // Named constructor dengan parameter
+  Mobil.dariJson(Map<String, dynamic> json) {
+    merk = json['merk'];
+    tahun = json['tahun'];
+  }
+
+  // Override toString for better print output
+  @override
+  String toString() {
+    return 'Mobil{merk: $merk, tahun: $tahun}';
+  }
+}
+
+void main() {
+  print('--- Demonstrasi Class Mobil ---');
+
+  // 1. Menggunakan constructor default (parameterized constructor)
+  var mobilA = Mobil('Honda', 2020);
+  print('Mobil A (constructor default): $mobilA');
+
+  // 2. Menggunakan named constructor Mobil.baru()
+  var mobilB = Mobil.baru();
+  print('Mobil B (named constructor .baru): $mobilB');
+
+  // 3. Menggunakan named constructor Mobil.dariJson()
+  String jsonString = '{"merk": "Suzuki", "tahun": 2021}';
+  Map<String, dynamic> jsonData = jsonDecode(jsonString);
+  var mobilC = Mobil.dariJson(jsonData);
+  print('Mobil C (named constructor .dariJson): $mobilC');
+
+  // Contoh lain dengan named constructor Mobil.dariJson()
+  Map<String, dynamic> anotherJsonData = {'merk': 'Mitsubishi', 'tahun': 2022};
+  var mobilD = Mobil.dariJson(anotherJsonData);
+  print('Mobil D (named constructor .dariJson): $mobilD');
+
+  print('\n--- Akhir Demonstrasi ---');
+}</code></pre>
+<button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=0cb668c399daf986b442f2d88312c2c0">Lihat Program</button>
+  </div>
+
+  <!-- Program 2 -->
+  <div class="card">
+    <h2>constant contructor-Warna</h2>
+    <p>Constant constructor adalah constructor yang digunakan untuk membuat objek yang bersifat konstan 
+      (tidak berubah). Constructor ini menggunakan kata kunci const sehingga nilai atribut pada objek harus 
+      tetap dan tidak dapat diubah setelah dibuat. Constant constructor biasanya digunakan untuk menghemat 
+      memori, karena jika ada objek dengan nilai yang sama maka Dart akan menggunakan objek yang sudah ada.</p>
+    <pre><code> //Nama: Ratu Klarisa Rahadianti
+//Nim: 251410010
+//Kelas: SI2A
+
+
+class Warna {
+  final int r, g, b;
+  const Warna(this.r, this.g, this.b);
+
+  @override
+  String toString() {
+    return 'Warna(r: $r, g: $g, b: $b)';
+  }
+}
+
+void main() {
+  const merah = Warna(255, 0, 0);
+  const merahLagi = Warna(255, 0, 0); // Menggunakan instance yang sama di memory
+
   print(merah);
-  print(identical(merah, merahLagi)); <span class="comment">// true</span>
-}</pre>
+  print(merahLagi);
+}</code></pre>
+<button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=1442491281e1f65e5de31dff964a4593">Lihat Program</button>
+  </div>
 
-    <h3>⚙️ Initializer List – Titik</h3>
-    <pre><span class="keyword">class</span> Titik {
-  <span class="keyword">final double</span> x, y;
-  Titik(<span class="keyword">double</span> x, <span class="keyword">double</span> y)
-      : x = x.abs(), y = y.abs() {  <span class="comment">// inisialisasi sebelum body</span>
-    print(<span class="string">'Titik dibuat di ($x, $y)'</span>);
+  <!-- Program 3 -->
+  <div class="card">
+    <h2>Initializer List-Titik</h2>
+    <p>Initializer list adalah cara untuk menginisialisasi nilai variabel sebelum constructor dijalankan. 
+      Pada Dart, initializer list ditulis menggunakan tanda titik dua (:) setelah constructor. 
+      Cara ini biasanya digunakan untuk mengisi variabel final atau melakukan perhitungan awal sebelum objek dibuat.</p>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti
+//Nim: 251410010
+//Kelas: SI2A
+
+
+class Titik {
+  final double x, y;
+
+  Titik(double x, double y)
+    : x = x.abs(),
+      y = y.abs() {
+    print('Titik dibuat di (${this.x}, ${this.y})'); // Using this.x and this.y to show the absolute values
+    
   }
-}</pre>
+}
 
-    <h2>🛡️ Enkapsulasi</h2>
-    <p><strong>Konsep:</strong> menyembunyikan detail implementasi. <strong>Tujuan:</strong> keamanan, kontrol akses, fleksibilitas. <br>Di Dart: gunakan <code>_</code> (underscore) untuk private member (berlaku per file).</p>
+void main(){
+  // Contoh penggunaan class Titik
+  print('Membuat objek Titik pertama:');
+  var titik1 = Titik(3.0, 4.0); // x=3.0, y=4.0
+  print('Titik 1: x = ${titik1.x}, y = ${titik1.y}');
 
-    <h3>🔒 Public vs Private – Person</h3>
-    <pre><span class="keyword">class</span> Person {
-  String _name;   <span class="comment">// private</span>
-  <span class="keyword">int</span> age;        <span class="comment">// public</span>
-  Person(<span class="keyword">this</span>._name, <span class="keyword">this</span>.age);
-}</pre>
+  print('\nMembuat objek Titik kedua dengan nilai negatif:');
+  var titik2 = Titik(-5.0, 10.0); // x=5.0 (abs), y=10.0 (abs)
+  print('Titik 2: x = ${titik2.x}, y = ${titik2.y}');
 
-    <h3>📥 Getter – membaca private</h3>
-    <pre><span class="keyword">class</span> Person {
+  print('\nMembuat objek Titik ketiga dengan nilai negatif di kedua koordinat:');
+  var titik3 = Titik(-1.5, -2.5); // x=1.5 (abs), y=2.5 (abs)
+  print('Titik 3: x = ${titik3.x}, y = ${titik3.y}');
+}</code></pre>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=8a98b6f2c12abaf21d8e6ecb928b35dc">Lihat Program</button>
+  </div>
+
+   <!-- Program 4 -->
+  <div class="card">
+    <h2>Practice Mahasiswa:</h2>
+    <p>Penerapan objek Mahasiswa untuk mengatur dan menyimpan data akademik.</p>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti
+//Nim:251410010
+//Kelas:SI2A
+
+class Mahasiswa {
+  String? nama;
+  String? nim;
+
+  // Constructor default
+  Mahasiswa(this.nama, this.nim);
+
+  // Named constructor dari Map
+  Mahasiswa.dariMap(Map<String, String> data) {
+    nama = data['nama'];
+    nim = data['nim'];
+  }
+
+  // Named constructor tanpa nama
+  Mahasiswa.tanpaNama() {
+    nama = "Tidak Diketahui";
+    nim = "000000";
+  }
+
+  void info() {
+    print("Mahasiswa: $nama ($nim)");
+  }
+}
+
+void main() {
+  // Objek menggunakan constructor default
+  var m1 = Mahasiswa("riska", "251416617");
+
+  // Objek menggunakan constructor dariMap
+  var m2 = Mahasiswa.dariMap({
+    "nama": "Budi",
+    "nim": "25146603"
+  });
+
+  // Objek menggunakan constructor tanpaNama
+  var m3 = Mahasiswa.tanpaNama();
+
+  m1.info();
+  m2.info();
+  m3.info();
+}</code></pre>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=64c0e7f936188eb84822feb55cd8092c">Lihat Program</button>
+  </div>
+
+  <!-- Program 5 -->
+  <div class="card">
+    <h2>Enkapsulasi</h2>
+    <p>Konsep: Menyembunyikan detail implementasi</p>
+    <p>Tujuan: Keamanan, kontrol akses, fleksibilitas.</p>
+    <p>Di Dart gunakan _(undescore) untuk private member</p>
+  </div>
+
+  <!-- Program 6 -->
+  <div class="card">
+    <h2>Publik VS Private</h2>
+    <p>Public dan Private adalah konsep dalam pemrograman berorientasi objek yang digunakan untuk mengatur 
+      tingkat akses terhadap variabel atau method dalam sebuah class.
+Public berarti atribut atau method dapat diakses dari luar class.
+Private berarti atribut atau method hanya dapat diakses di dalam class itu sendiri.
+Dalam bahasa Dart, variabel atau method dianggap private jika diawali dengan tanda underscore (_).</p>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti
+//Nim: 251410010
+//Kelas: SI2A
+
+
+class Person {
   String _name;
-  <span class="keyword">int</span> age;
-  Person(<span class="keyword">this</span>._name, <span class="keyword">this</span>.age);
+  int age;
+  Person(this._name, this.age);
+  
+}
 
-  String <span class="keyword">get</span> getName1 => _name;       <span class="comment">// getter style 1</span>
-  String getName() => _name;           <span class="comment">// method biasa</span>
-}</pre>
+void main() {
+  Person person = Person("Ratu", 17);
+  print(person.age);
+  // print(person._name); // error karena private
+  
+}</code></pre>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=e36d57cf6b3f6848cbee7c19b5f91bd7">Lihat Program</button>
+  </div>
 
-    <h3>📤 Setter – modifikasi dengan validasi</h3>
-    <pre><span class="keyword">class</span> Person {
-  String _name;
-  <span class="keyword">int</span> age;
-  Person(<span class="keyword">this</span>._name, <span class="keyword">this</span>.age);
+  <!-- Program 7 -->
+  <div class="card">
+    <h2>Contoh Setter & Getter</h2>
+    <p>Getter dan Setter adalah method yang digunakan untuk mengambil (getter) dan mengubah (setter) nilai variabel private dalam sebuah class. 
+      Konsep ini digunakan untuk menjaga keamanan dan kontrol akses data, sehingga variabel tidak dapat diakses langsung dari luar class.
+Getter → digunakan untuk mengambil nilai dari variabel private.
+Setter → digunakan untuk mengubah atau memberikan nilai baru pada variabel private.</p>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti
+//Nim: 251410010
+//Kelas: SI2A
 
-  <span class="keyword">set</span> setName1(String name) => _name = name;
-  <span class="keyword">void</span> setName(String name) { _name = name; }
-}</pre>
 
-    <h3>✅ Produk – Getter/Setter dengan validasi</h3>
-    <pre><span class="keyword">class</span> Produk {
+class Produk {
   String _nama;
-  <span class="keyword">double</span> _harga;
-  Produk(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._harga);
-
-  String <span class="keyword">get</span> nama => _nama;
-  <span class="keyword">double</span> <span class="keyword">get</span> harga => _harga;
-
-  <span class="keyword">set</span> nama(String value) {
-    <span class="keyword">if</span> (value.length >= 3) _nama = value;
-    <span class="keyword">else</span> print(<span class="string">'Nama minimal 3 karakter'</span>);
+  double _harga;
+  
+  Produk(this._nama, this._harga);
+  
+  // Getter
+  String get nama => _nama;
+  double get harga => _harga;
+  
+  // Setter dengan validasi
+  set nama(String value) {
+    if (value.length >= 3) {
+      _nama = value;
+    } else {
+      print('Gagal memperbarui nama: Nama harus memiliki minimal 3 karakter.');
+    }
   }
-
-  <span class="keyword">set</span> harga(<span class="keyword">double</span> value) {
-    <span class="keyword">if</span> (value > 0) _harga = value;
-    <span class="keyword">else</span> print(<span class="string">'Harga harus > 0'</span>);
+  
+  set harga(double value) {
+    if (value > 0) {
+      _harga = value;
+    } else {
+      print('Gagal memperbarui harga: Harga harus lebih besar dari 0.');
+    }
   }
-}</pre>
+}
 
-    <h3>🔐 Studi Kasus: User – Login & ganti password</h3>
-    <pre><span class="keyword">class</span> User {
+void main() {
+  // Membuat instance dari class Produk
+  var produk1 = Produk('Monitor Samsung', 3500.0);
+
+  print('--- Informasi Produk Awal ---');
+  print('Nama Produk: ${produk1.nama}');
+  print('Harga Produk: Rp ${produk1.harga.toStringAsFixed(2)}');
+
+  // Menggunakan setter untuk memperbarui nilai
+  print('\n--- Memperbarui Produk ---');
+  produk1.nama = 'Keyboard Mekanik';
+  produk1.harga = 1200.0;
+
+  print('Nama Produk (setelah update): ${produk1.nama}');
+  print('Harga Produk (setelah update): Rp ${produk1.harga.toStringAsFixed(2)}');
+
+  // Menguji validasi setter
+  print('\n--- Menguji Validasi Setter ---');
+  
+  // Nama yang tidak valid (kurang dari 3 karakter)
+  print('Mencoba mengatur nama menjadi "TV"');
+  produk1.nama = 'TV'; // Ini seharusnya tidak mengubah nama
+  print('Nama Produk (setelah gagal update nama): ${produk1.nama}');
+
+  // Harga yang tidak valid (kurang dari atau sama dengan 0)
+  print('Mencoba mengatur harga menjadi -100.0');
+  produk1.harga = -100.0; // Ini seharusnya tidak mengubah harga
+  print('Harga Produk (setelah gagal update harga): Rp ${produk1.harga.toStringAsFixed(2)}');
+
+  print('Mencoba mengatur harga menjadi 0.0');
+  produk1.harga = 0.0; // Ini seharusnya tidak mengubah harga
+  print('Harga Produk (setelah gagal update harga): Rp ${produk1.harga.toStringAsFixed(2)}');
+
+  // Memastikan nilai tidak berubah setelah percobaan yang tidak valid
+  print('\n--- Status Akhir Produk ---');
+  print('Nama Produk: ${produk1.nama}');
+  print('Harga Produk: Rp ${produk1.harga.toStringAsFixed(2)}');
+}</code></pre>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=171980b5464cb1640666b4df5bf97199">Lihat Program</button>
+  </div>
+
+    <!-- Program 8 -->
+  <div class="card">
+    <h2>Praktik 2 Enkapsulasi Lengkap</h2>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti
+//Nim:251410010
+//Kelas" SI2A
+
+class User {
   String _username;
   String _password;
-  User(<span class="keyword">this</span>._username, <span class="keyword">this</span>._password);
+  String _email;
 
-  String <span class="keyword">get</span> username => _username;
-  <span class="keyword">bool</span> login(String username, String password) =>
-      _username == username && _password == password;
+  // Constructor
+  User(this._username, this._password, this._email);
 
-  <span class="keyword">void</span> gantiPassword(String lama, String baru) {
-    <span class="keyword">if</span> (_password != lama) {
-      print(<span class="string">'Password lama salah'</span>);
-    } <span class="keyword">else if</span> (baru.length < 8) {
-      print(<span class="string">'Password baru minimal 8 karakter'</span>);
-    } <span class="keyword">else</span> {
-      _password = baru;
-      print(<span class="string">'Password berhasil diubah'</span>);
+  // Getter
+  String get username => _username;
+  String get password => _password;
+  String get email => _email;
+
+  // Setter dengan validasi
+  set username(String value) {
+    if (value.length >= 5) {
+      _username = value;
+    } else {
+      print("Username minimal 5 karakter.");
     }
   }
-}</pre>
 
-    <!-- Koleksi Link DartPad (8 contoh) -->
-    <h2>🔗 Contoh Kode Langsung di DartPad</h2>
-    <p>Klik tombol di bawah untuk membuka dan menjalankan kode secara interaktif:</p>
-    <div class="card-grid">
-        <div class="card">
-            <h4>🚗 1. Mobil (named constructor)</h4>
-            <p>Demonstrasi named constructor <code>.baru()</code> dan <code>.dariJson()</code>.</p>
-            <a class="btn-link" href="https://dartpad.dev/0cb668c399daf986b442f2d88312c2c0" target="_blank">Buka di DartPad</a>
-        </div>
-        <div class="card">
-            <h4>🎨 2. Warna (const constructor)</h4>
-            <p>Immutable object dengan const constructor, instance sama.</p>
-            <a class="btn-link" href="https://dartpad.dev/1442491281e1f65e5de31dff964a4593" target="_blank">Buka di DartPad</a>
-        </div>
-        <div class="card">
-            <h4>📍 3. Titik (initializer list)</h4>
-            <p>Initializer list untuk memastikan nilai absolut.</p>
-            <a class="btn-link" href="https://dartpad.dev/8a98b6f2c12abaf21d8e6ecb928b35dc" target="_blank">Buka di DartPad</a>
-        </div>
-        <div class="card">
-            <h4>👤 4. Person (private field)</h4>
-            <p>Field private <code>_name</code> tidak bisa diakses langsung.</p>
-            <a class="btn-link" href="https://dartpad.dev/e36d57cf6b3f6848cbee7c19b5f91bd7" target="_blank">Buka di DartPad</a>
-        </div>
-        <div class="card">
-            <h4>🔍 5. Person (getter style)</h4>
-            <p>Getter <code>getName1</code> dan method <code>getName()</code>.</p>
-            <a class="btn-link" href="https://dartpad.dev/5d7215e1bb6aa8a4e389ed3c1e57e12a" target="_blank">Buka di DartPad</a>
-        </div>
-        <div class="card">
-            <h4>✏️ 6. Person (setter & method)</h4>
-            <p>Setter <code>setName1</code> dan method <code>setName()</code>.</p>
-            <a class="btn-link" href="https://dartpad.dev/9cede0271b357d6e3247703e835a49a8" target="_blank">Buka di DartPad</a>
-        </div>
-        <div class="card">
-            <h4>📦 7. Produk (validasi)</h4>
-            <p>Setter dengan validasi panjang nama dan harga positif.</p>
-            <a class="btn-link" href="https://dartpad.dev/171980b5464cb1640666b4df5bf97199" target="_blank">Buka di DartPad</a>
-        </div>
-        <div class="card">
-            <h4>🔐 8. User (login & ganti password)</h4>
-            <p>Sistem login sederhana dengan validasi password.</p>
-            <a class="btn-link" href="https://dartpad.dev/79bd900c7e934b3b8040e8684b7242fd" target="_blank">Buka di DartPad</a>
-        </div>
-    </div>
+  set password(String value) {
+    if (value.length >= 8) {
+      _password = value;
+    } else {
+      print("Password minimal 8 karakter.");
+    }
+  }
 
-    <!-- Penyelesaian Soal Latihan 1 & 2 (RekeningBank) -->
-    <h2>🧪 Penyelesaian Soal Latihan 1 & 2 (RekeningBank)</h2>
-    <p><strong>Soal 1:</strong> Buat kelas <code>RekeningBank</code> dengan field private <code>_nomorRekening</code>, <code>_saldo</code>. Method: <code>deposit()</code>, <code>tarik()</code>, <code>cekSaldo()</code>. Validasi saldo tidak boleh negatif.</p>
-    <p><strong>Soal 2:</strong> Buat program sederhana simulasi transaksi.</p>
+  set email(String value) {
+    if (value.contains('@')) {
+      _email = value;
+    } else {
+      print("Email harus mengandung '@'.");
+    }
+  }
 
-    <h3>🏦 Kelas RekeningBank (lengkap)</h3>
-    <pre><span class="keyword">class</span> RekeningBank {
+  void info() {
+    print("Username: $_username");
+    print("Password: $_password");
+    print("Email   : $_email");
+  }
+}
+
+void main() {
+  var user1 = User("Riska", "password2525", "Riska@gmail");
+
+  user1.info();
+
+  print("---- Ubah Data ----");
+
+  user1.username = "Riska80";
+  user1.password = "123456788888";
+  user1.email = "Riska80ea@email.com";
+
+  user1.info();
+}</code></pre>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=71709e8a5d2fe25a82239082cc5fe99b">Lihat Program</button>
+  </div>
+
+  <!-- Program 9 -->
+  <div class="card">
+    <h2>Study kasus user Login</h2>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti
+//Nim: 251410010
+//Kelas: SI2A
+
+class User {
+  String _username;
+  String _password;
+
+  // Constructor
+  User(this._username, this._password);
+
+  // Getter username
+  String get username => _username;
+
+  // Method login
+  bool login(String username, String password) {
+    return _username == username && _password == password;
+  }
+
+  // Method ganti password
+  void gantiPassword(String lama, String baru) {
+    if (_password == lama) {
+      if (baru.length >= 8) {
+        _password = baru;
+        print("Password berhasil diubah.");
+      } else {
+        print("Gagal mengubah password: Password baru minimal 8 karakter.");
+      }
+    } else {
+      print("Gagal mengubah password: Password lama salah.");
+    }
+  }
+}
+
+void main() {
+  // Membuat user
+  User user1 = User("ratuUser", "12345678");
+
+  print("=== SISTEM LOGIN SEDERHANA ===");
+
+  // Simulasi login
+  if (user1.login("ratuUser", "12345678")) {
+    print("Login berhasil");
+  } else {
+    print("Login gagal");
+  }
+
+  // Mengganti password
+  user1.gantiPassword("12345678", "passwordBaru");
+
+  // Login lagi dengan password baru
+  if (user1.login("ratuUser", "passwordBaru")) {
+    print("Login dengan password baru berhasil");
+  } else {
+    print("Login gagal");
+  }
+}
+</code></pre>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=64737fac4dedda78416d065454088487">Lihat Program</button>
+  </div>
+
+<!-- Program 10 -->
+  <div class="card">
+    <h2>Latihan</h2>
+    <p>Buat kelas RekeningBank dengan:</p>
+    </p>Field private: _nomor Rekening, saldo</p>
+    </p>Method: deposit(), tarik(), cekSaldo()</p>
+    </p>Validasi: saldo tidak bisa negatif</p>
+    </p>Buat program sederhana untuk simulasi transaksi.</p>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti
+//Nim: 251410010
+//Kelas: SI2A
+
+class RekeningBank {
   String _nomorRekening;
-  <span class="keyword">double</span> _saldo;
+  double _saldo;
 
-  RekeningBank(<span class="keyword">this</span>._nomorRekening, <span class="keyword">this</span>._saldo) {
-    <span class="keyword">if</span> (_saldo < 0) _saldo = 0; <span class="comment">// pastikan awal tidak negatif</span>
-  }
+  // Constructor
+  RekeningBank(this._nomorRekening, this._saldo);
 
-  <span class="comment">// Getter (opsional)</span>
-  String <span class="keyword">get</span> nomorRekening => _nomorRekening;
-  <span class="keyword">double</span> <span class="keyword">get</span> saldo => _saldo;
-
-  <span class="keyword">void</span> deposit(<span class="keyword">double</span> jumlah) {
-    <span class="keyword">if</span> (jumlah > 0) {
+  // Method deposit
+  void deposit(double jumlah) {
+    if (jumlah > 0) {
       _saldo += jumlah;
-      print(<span class="string">'✔️ Deposit Rp$jumlah berhasil. Saldo sekarang: Rp$_saldo'</span>);
-    } <span class="keyword">else</span> {
-      print(<span class="string">'❌ Jumlah deposit harus positif.'</span>);
+      print("Deposit Rp $jumlah berhasil.");
+    } else {
+      print("Jumlah deposit tidak valid.");
     }
   }
 
-  <span class="keyword">void</span> tarik(<span class="keyword">double</span> jumlah) {
-    <span class="keyword">if</span> (jumlah <= 0) {
-      print(<span class="string">'❌ Jumlah tarik harus positif.'</span>);
-    } <span class="keyword">else if</span> (jumlah > _saldo) {
-      print(<span class="string">'❌ Saldo tidak mencukupi. Saldo: Rp$_saldo'</span>);
-    } <span class="keyword">else</span> {
+  // Method tarik
+  void tarik(double jumlah) {
+    if (jumlah > 0 && jumlah <= _saldo) {
       _saldo -= jumlah;
-      print(<span class="string">'✔️ Tarik Rp$jumlah berhasil. Saldo sekarang: Rp$_saldo'</span>);
+      print("Penarikan Rp $jumlah berhasil.");
+    } else {
+      print("Penarikan gagal. Saldo tidak cukup atau jumlah tidak valid.");
     }
   }
 
-  <span class="keyword">void</span> cekSaldo() {
-    print(<span class="string">'💰 Saldo rekening $_nomorRekening : Rp$_saldo'</span>);
+  // Method cek saldo
+  void cekSaldo() {
+    print("Nomor Rekening : $_nomorRekening");
+    print("Saldo Saat Ini : Rp $_saldo");
   }
-}</pre>
+}
 
-    <h3>💻 Simulasi Transaksi (Soal 2)</h3>
-    <pre><span class="keyword">void</span> main() {
-  print(<span class="string">'========== SIMULASI TRANSAKSI BANK =========='</span>);
+void main() {
+  // Membuat objek rekening
+  RekeningBank rekening = RekeningBank("123456789", 1000000);
 
-  <span class="keyword">var</span> rek1 = RekeningBank(<span class="string">'001-234567-89'</span>, 500000);
-  <span class="keyword">var</span> rek2 = RekeningBank(<span class="string">'002-987654-32'</span>, 250000);
+  print("=== SIMULASI TRANSAKSI BANK ===");
 
-  print(<span class="string">'\n--- Data Awal ---'</span>);
-  rek1.cekSaldo();
-  rek2.cekSaldo();
+  rekening.cekSaldo();
+  print("----------------------");
 
-  print(<span class="string">'\n--- Transaksi Rekening 1 ---'</span>);
-  rek1.deposit(200000);
-  rek1.tarik(100000);
-  rek1.tarik(700000);  <span class="comment">// gagal (saldo kurang)</span>
-  rek1.deposit(-50000); <span class="comment">// gagal (negatif)</span>
-  rek1.cekSaldo();
+  // Simulasi deposit
+  rekening.deposit(500000);
+  rekening.cekSaldo();
+  print("----------------------");
 
-  print(<span class="string">'\n--- Transaksi Rekening 2 ---'</span>);
-  rek2.tarik(50000);
-  rek2.tarik(300000);  <span class="comment">// gagal</span>
-  rek2.deposit(1000000);
-  rek2.cekSaldo();
+  // Simulasi penarikan
+  rekening.tarik(300000);
+  rekening.cekSaldo();
+  print("----------------------");
 
-  print(<span class="string">'\n--- Status Akhir ---'</span>);
-  rek1.cekSaldo();
-  rek2.cekSaldo();
+  // Simulasi penarikan gagal
+  rekening.tarik(2000000);
+  rekening.cekSaldo();
+}</code></pre>
+    <button class="btn-preview" data-src="https://dartpad.dev/embed-dart.html?id=c9a421fd3ec07ecfbec803f249ec680b">Lihat Program</button>
+  </div>
 
-  print(<span class="string">'\n========== SIMULASI SELESAI =========='</span>);
-}</pre>
+  <!-- Program 11 -->
+  <div class="card">
+    <h2>Rangkumann</h2>
+    <p>1.Dart memiliki berbagai jenis constructor</p>
+    <p>2.Enkapsulasi melindungi data dengan private field</p>
+    <p>3.Getter & Setter memberikan kontrol akses yang aman</p>
+  </div>
 
-    <h3>📋 Contoh Output</h3>
-    <div class="output">
-<pre>========== SIMULASI TRANSAKSI BANK ==========
-
---- Data Awal ---
-💰 Saldo rekening 001-234567-89 : Rp500000.0
-💰 Saldo rekening 002-987654-32 : Rp250000.0
-
---- Transaksi Rekening 1 ---
-✔️ Deposit Rp200000.0 berhasil. Saldo sekarang: Rp700000.0
-✔️ Tarik Rp100000.0 berhasil. Saldo sekarang: Rp600000.0
-❌ Saldo tidak mencukupi. Saldo: Rp600000.0
-❌ Jumlah deposit harus positif.
-💰 Saldo rekening 001-234567-89 : Rp600000.0
-
---- Transaksi Rekening 2 ---
-✔️ Tarik Rp50000.0 berhasil. Saldo sekarang: Rp200000.0
-❌ Saldo tidak mencukupi. Saldo: Rp200000.0
-✔️ Deposit Rp1000000.0 berhasil. Saldo sekarang: Rp1200000.0
-💰 Saldo rekening 002-987654-32 : Rp1200000.0
-
---- Status Akhir ---
-💰 Saldo rekening 001-234567-89 : Rp600000.0
-💰 Saldo rekening 002-987654-32 : Rp1200000.0</pre>
+<!-- Modal Popup untuk iframe -->
+<div id="iframeModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">Program</h3>
+      <span class="close" id="closeModal">&times;</span>
     </div>
-
-    <!-- Ringkasan Akhir -->
-    <div style="background:#e6f0ff; border-radius:2rem; padding:1.5rem; margin:2rem 0;">
-        <h3 style="margin-top:0;">📌 Ringkasan (Slide 14)</h3>
-        <ul style="font-size:1.2rem;">
-            <li>✅ Dart memiliki berbagai jenis constructor: default, named, parameterized, constant, factory.</li>
-            <li>✅ Enkapsulasi melindungi data dengan private field (<code>_</code>).</li>
-            <li>✅ Getter & setter memberikan kontrol akses yang aman (bisa ditambah validasi).</li>
-            <li>✅ Latihan soal 1 & 2 (RekeningBank) telah diselesaikan dengan validasi saldo tidak negatif.</li>
-        </ul>
+    <div class="modal-body">
+      <iframe id="modalIframe" src="" title="Program Preview"></iframe>
     </div>
-
-    <!-- Tautan GitHub -->
-    <div class="github-box">
-        <p style="font-size:1.4rem; font-weight:bold; color:#065f46;">🌟 BONUS 2 & 3 – RESUME + SOAL 1 & 2</p>
-        <p>GitHub repository:</p>
-        <a href="https://ratu06.github.io/Ratu06.github.io3/" target="_blank">https://ratu06.github.io/Ratu06.github.io3/</a>
-    </div>
-
-    <div class="footer">
-        Disusun oleh Ratu klarisa · 251410010 · Si2A · Tugas Bonus Sesi 2
-    </div>
+  </div>
 </div>
+
+<footer>
+  © 2026 Laporan OOP Dart • GitHub Pages
+</footer>
+
+<script>
+  (function() {
+    const modal = document.getElementById('iframeModal');
+    const modalIframe = document.getElementById('modalIframe');
+    const closeBtn = document.getElementById('closeModal');
+    const modalTitle = document.getElementById('modalTitle');
+
+    const previewButtons = document.querySelectorAll('.btn-preview');
+
+    function openModal(src, programName) {
+      modalIframe.src = src;
+      modalTitle.textContent = programName;
+      modal.style.display = 'flex';
+    }
+
+    function closeModal() {
+      modal.style.display = 'none';
+      modalIframe.src = '';
+    }
+
+    previewButtons.forEach((btn) => {
+      btn.addEventListener('click', function() {
+        const src = this.dataset.src;
+        const programName = this.closest('.card').querySelector('h2').textContent;
+        openModal(src, programName);
+      });
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', function(event) {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.addEventListener('keydown', function(event) {
+      if (event.key === 'Escape' && modal.style.display === 'flex') {
+        closeModal();
+      }
+    });
+  })();
+</script>
 </body>
 </html>
