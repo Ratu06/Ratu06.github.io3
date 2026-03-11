@@ -1,746 +1,366 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Ringkasan Sesi 2: Konstruktor & Enkapsulasi (Dart)</title>
-  <style>
-    /* CSS RESET & VARIABLES */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ratu klarisa · Sesi 2 Dart (iframe popup)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    :root {
-      --bg: #f8fafc;
-      --surface: #ffffff;
-      --primary: #0f172a;
-      --secondary: #334155;
-      --accent: #2563eb;
-      --accent-light: #3b82f6;
-      --border: #e2e8f0;
-      --text: #1e293b;
-      --text-light: #64748b;
-      --code-bg: #1e1e2f;
-      --code-text: #f8f8f2;
-      --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-      --radius: 12px;
-      --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-    }
+        body {
+            background: linear-gradient(145deg, #f1f5f9 0%, #e6edf7 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+            padding: 1rem;
+        }
 
-    body {
-      background-color: var(--bg);
-      color: var(--text);
-      font-family: var(--font-sans);
-      line-height: 1.6;
-      padding: 2rem 1rem;
-    }
+        .card {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(8px);
+            max-width: 800px;
+            width: 100%;
+            border-radius: 3rem;
+            box-shadow: 0 30px 60px -20px #1e293b80, 0 0 0 1px #ffffff40 inset;
+            padding: 2.5rem 2rem;
+            border: 1px solid #cbd5e180;
+        }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+        .identity {
+            background: #1e1e2f;
+            border-radius: 2rem;
+            padding: 1.2rem 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 0 #0f172a;
+            border: 1px solid #475569;
+        }
 
-    /* HEADER */
-    .header {
-      text-align: center;
-      margin-bottom: 3rem;
-    }
+        .identity pre {
+            background: transparent;
+            color: #facc15;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 1.2rem;
+            font-weight: 500;
+            text-shadow: 0 2px 0 #00000050;
+            margin: 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
 
-    .header h1 {
-      font-size: 2.5rem;
-      font-weight: 700;
-      background: linear-gradient(135deg, var(--primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 0.5rem;
-    }
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            margin: 2rem 0 1rem;
+        }
 
-    .header .badge {
-      display: inline-block;
-      background: var(--accent-light);
-      color: white;
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      font-weight: 500;
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-      box-shadow: var(--shadow);
-    }
+        .popup-btn {
+            background: #0f172a;
+            color: white;
+            border: none;
+            padding: 1.2rem 3.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-radius: 60px;
+            cursor: pointer;
+            box-shadow: 0 15px 0 #020617, 0 10px 30px #2563eb80;
+            transition: all 0.1s ease;
+            border: 2px solid #facc15;
+            letter-spacing: 1px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
 
-    .header .meta {
-      color: var(--text-light);
-      font-size: 1.1rem;
-      margin-top: 1rem;
-    }
+        .popup-btn:active {
+            transform: translateY(8px);
+            box-shadow: 0 5px 0 #020617, 0 10px 20px #2563eb;
+        }
 
-    /* GRID LAYOUT */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
+        .github-link {
+            background: #f8fafc;
+            padding: 1rem 1.5rem;
+            border-radius: 60px;
+            margin: 1.5rem 0 0.5rem;
+            text-align: center;
+            border: 2px dashed #2563eb;
+            font-size: 1.1rem;
+        }
 
-    /* CARD */
-    .card {
-      background: var(--surface);
-      border-radius: var(--radius);
-      box-shadow: var(--shadow);
-      padding: 1.5rem;
-      border: 1px solid var(--border);
-      transition: all 0.2s ease;
-    }
+        .github-link a {
+            color: #0f172a;
+            font-weight: bold;
+            text-decoration: none;
+            background: #e2e8f0;
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+        }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
-    }
+        .github-link a:hover {
+            background: #2563eb;
+            color: white;
+        }
 
-    .card h2 {
-      font-size: 1.5rem;
-      font-weight: 600;
-      margin-bottom: 1rem;
-      border-bottom: 2px solid var(--accent-light);
-      padding-bottom: 0.5rem;
-      display: inline-block;
-    }
+        /* MODAL POPUP */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(6px);
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+        }
 
-    .card h3 {
-      font-size: 1.2rem;
-      font-weight: 600;
-      margin: 1rem 0 0.5rem;
-      color: var(--secondary);
-    }
+        .modal-content {
+            background: #1e293b;
+            width: 98vw;
+            height: 96vh;
+            border-radius: 2.5rem;
+            box-shadow: 0 30px 60px #000, 0 0 0 4px #facc15 inset;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            border: 2px solid white;
+        }
 
-    .card ul, .card ol {
-      padding-left: 1.5rem;
-      margin: 1rem 0;
-    }
+        .modal-header {
+            background: #0f172a;
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            border-bottom: 3px solid #facc15;
+            flex-shrink: 0;
+        }
 
-    .card li {
-      margin-bottom: 0.5rem;
-    }
+        .modal-header h2 {
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #facc15, #ffd966);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin: 0;
+            border: none;
+        }
 
-    .card p {
-      margin-bottom: 1rem;
-    }
+        .close-btn {
+            background: #dc2626;
+            color: white;
+            border: none;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #7f1d1d;
+            transition: 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
 
-    /* CODE BLOCK */
-    pre {
-      background: var(--code-bg);
-      color: var(--code-text);
-      padding: 1rem;
-      border-radius: 10px;
-      overflow-x: auto;
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      line-height: 1.5;
-      margin: 1.5rem 0;
-      box-shadow: inset 0 2px 4px 0 rgb(0 0 0 / 0.2);
-    }
+        .close-btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 1px 0 #7f1d1d;
+        }
 
-    code {
-      font-family: var(--font-mono);
-      background: #eef2f6;
-      color: #d63384;
-      padding: 0.2rem 0.4rem;
-      border-radius: 6px;
-      font-size: 0.9rem;
-    }
+        .iframe-gallery {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1.5rem 2rem;
+            background: #f1f5f9;
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
 
-    pre code {
-      background: transparent;
-      color: inherit;
-      padding: 0;
-    }
+        .iframe-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            box-shadow: 0 10px 20px -10px #1e293b;
+            border: 2px solid #cbd5e1;
+        }
 
-    /* HIGHLIGHT */
-    .keyword {
-      color: #ff79c6;
-    }
+        .iframe-card h3 {
+            margin: 0 0 0.5rem 0;
+            color: #0f172a;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
 
-    .comment {
-      color: #6272a4;
-    }
+        .iframe-card h3 span {
+            background: #2563eb;
+            color: white;
+            padding: 0.2rem 1rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
 
-    .string {
-      color: #f1fa8c;
-    }
+        .dart-embed {
+            width: 100%;
+            height: 380px;
+            border: none;
+            border-radius: 1rem;
+            background: #f8fafc;
+            box-shadow: inset 0 0 0 1px #94a3b8;
+        }
 
-    /* TOC */
-    .toc {
-      background: var(--surface);
-      border-radius: var(--radius);
-      padding: 1.5rem;
-      margin-bottom: 2rem;
-      border: 1px solid var(--border);
-    }
+        .resume-summary {
+            background: #e6f0ff;
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            border: 2px solid #2563eb;
+        }
 
-    .toc h3 {
-      margin-bottom: 1rem;
-    }
+        .resume-summary h4 {
+            font-size: 1.8rem;
+            color: #1e40af;
+            margin-bottom: 1rem;
+        }
 
-    .toc ul {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      list-style: none;
-      padding-left: 0;
-    }
-
-    .toc li a {
-      background: var(--bg);
-      padding: 0.3rem 1rem;
-      border-radius: 40px;
-      color: var(--accent);
-      text-decoration: none;
-      font-weight: 500;
-      border: 1px solid var(--border);
-      transition: 0.2s;
-    }
-
-    .toc li a:hover {
-      background: var(--accent);
-      color: white;
-      border-color: var(--accent);
-    }
-
-    /* BUTTON DARTPAD */
-    .dartpad-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.75rem;
-      margin-top: 1rem;
-      justify-content: center;
-    }
-
-    .dartpad-btn {
-      background: var(--accent);
-      color: white;
-      border: none;
-      padding: 0.6rem 1.2rem;
-      border-radius: 40px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: 0.2s;
-      box-shadow: var(--shadow);
-      border: 1px solid var(--accent-light);
-      font-size: 0.9rem;
-    }
-
-    .dartpad-btn:hover {
-      background: #1d4ed8;
-      transform: scale(1.02);
-    }
-
-    /* MODAL POPUP */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal-content {
-      background: var(--surface);
-      margin: auto;
-      padding: 1.5rem;
-      border-radius: var(--radius);
-      width: 90%;
-      max-width: 1000px;
-      box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.2);
-      border: 1px solid var(--border);
-      position: relative;
-    }
-
-    .close-btn {
-      position: absolute;
-      top: 1rem;
-      right: 1.5rem;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--text-light);
-      cursor: pointer;
-      transition: 0.2s;
-      line-height: 1;
-    }
-
-    .close-btn:hover {
-      color: var(--accent);
-    }
-
-    .iframe-container {
-      width: 100%;
-      height: 500px;
-      border-radius: 8px;
-      overflow: hidden;
-      border: 1px solid var(--border);
-      background: white;
-    }
-
-    .iframe-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
-    /* FOOTER */
-    .footer {
-      text-align: center;
-      margin-top: 4rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-      color: var(--text-light);
-    }
-
-    .footer .note {
-      font-size: 0.9rem;
-      margin-top: 0.5rem;
-    }
-
-    /* RESPONSIVE */
-    @media (max-width: 600px) {
-      .header h1 {
-        font-size: 2rem;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .toc ul {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-
-      .iframe-container {
-        height: 400px;
-      }
-    }
-  </style>
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+        @media (max-width: 700px) {
+            .modal-header h2 { font-size: 1.2rem; }
+            .iframe-card h3 { font-size: 1.2rem; }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <!-- HEADER -->
-    <div class="header">
-      <h1>📘 Konstruktor & Enkapsulasi di Dart</h1>
-      <div class="badge">Sesi 2 • Durasi 200 menit</div>
-      <p class="meta">Ringkasan lengkap dari 14 slide — Dilengkapi contoh kode dan studi kasus</p>
+<div class="card">
+    <!-- Identitas -->
+    <div class="identity">
+        <pre>// Nama   : Ratu klarisa
+// Nim    : 251410010
+// Kelas  : Si2A</pre>
     </div>
 
-    <!-- DAFTAR ISI CEPAT -->
-    <div class="toc">
-      <h3>📍 Langsung ke topik</h3>
-      <ul>
-        <li><a href="#review">Review</a></li>
-        <li><a href="#jenis-constructor">Jenis Constructor</a></li>
-        <li><a href="#named-constructor">Named Constructor</a></li>
-        <li><a href="#constant-constructor">Constant Constructor</a></li>
-        <li><a href="#initializer-list">Initializer List</a></li>
-        <li><a href="#praktik1">Praktik 1: Mahasiswa</a></li>
-        <li><a href="#enkapsulasi">Enkapsulasi</a></li>
-        <li><a href="#getter-setter">Getter & Setter</a></li>
-        <li><a href="#praktik2">Praktik 2: User</a></li>
-        <li><a href="#studikasus">Studi Kasus: Login</a></li>
-        <li><a href="#latihan">Latihan</a></li>
-      </ul>
+    <div class="btn-container">
+        <button class="popup-btn" id="bukaPopup">
+            <span style="font-size:2rem;">📂</span> BUKA RESUME + DARTPAD
+        </button>
     </div>
 
-    <!-- GRID CARD UTAMA (SESUAI SLIDE) -->
-    <div class="grid">
-      <!-- REVIEW & JENIS CONSTRUCTOR -->
-      <div class="card" id="review">
-        <h2>🔁 Review Sesi 1</h2>
-        <p>OOP berfokus pada objek. Kelas adalah <em>blueprint</em>, objek adalah instance. Constructor digunakan untuk inisialisasi.</p>
-        <pre><code><span class="keyword">class</span> Buku {
-  String judul;
-  Buku(<span class="keyword">this</span>.judul);
-}</code></pre>
-      </div>
-
-      <div class="card" id="jenis-constructor">
-        <h2>🏗️ Jenis Constructor</h2>
-        <ul>
-          <li><strong>Default:</strong> <code>ClassName()</code></li>
-          <li><strong>Named:</strong> <code>ClassName.name()</code></li>
-          <li><strong>Parameterized:</strong> <code>ClassName(this.param)</code></li>
-          <li><strong>Constant:</strong> <code>const ClassName()</code></li>
-          <li><strong>Factory:</strong> (dibahas lanjut)</li>
-        </ul>
-      </div>
+    <!-- GitHub link diperbarui -->
+    <div class="github-link">
+        🔗 <strong>GitHub repository:</strong> 
+        <a href="https://ratu06.github.io/Ratu06.github.io3/" target="_blank">https://ratu06.github.io/Ratu06.github.io3/</a>
     </div>
+    <p style="text-align:center; color:#334155;">⬆️ Klik tombol di atas untuk melihat 8 contoh Dart interaktif (iframe) + ringkasan materi.</p>
+</div>
 
-    <!-- NAMED CONSTRUCTOR DETAIL -->
-    <div class="card" id="named-constructor">
-      <h2>🚗 Named Constructor – Contoh Mobil</h2>
-      <pre><code><span class="keyword">import</span> 'dart:convert';
-
-<span class="keyword">class</span> Mobil {
-  String? merk;
-  <span class="keyword">int</span>? tahun;
-
-  <span class="comment">// Parameterized constructor</span>
-  Mobil(<span class="keyword">this</span>.merk, <span class="keyword">this</span>.tahun);
-
-  <span class="comment">// Named constructor tanpa parameter</span>
-  Mobil.baru() {
-    merk = <span class="string">'Toyota'</span>;
-    tahun = 2023;
-  }
-
-  <span class="comment">// Named constructor dari JSON</span>
-  Mobil.dariJson(Map&lt;String, dynamic&gt; json) {
-    merk = json[<span class="string">'merk'</span>];
-    tahun = json[<span class="string">'tahun'</span>];
-  }
-
-  @override
-  String toString() => <span class="string">'Mobil{merk: $merk, tahun: $tahun}'</span>;
-}</code></pre>
-    </div>
-
-    <!-- CONSTANT CONSTRUCTOR -->
-    <div class="card" id="constant-constructor">
-      <h2>⚡ Constant Constructor (Immutable)</h2>
-      <p>Semua field harus <code>final</code>. Menghemat memori untuk objek yang sama.</p>
-      <pre><code><span class="keyword">class</span> Warna {
-  <span class="keyword">final</span> <span class="keyword">int</span> r, g, b;
-  <span class="keyword">const</span> Warna(<span class="keyword">this</span>.r, <span class="keyword">this</span>.g, <span class="keyword">this</span>.b);
-
-  @override
-  String toString() => <span class="string">'Warna(r: $r, g: $g, b: $b)'</span>;
-}
-
-<span class="keyword">void</span> main() {
-  <span class="keyword">const</span> merah = Warna(255, 0, 0);
-  <span class="keyword">const</span> merahLagi = Warna(255, 0, 0); <span class="comment">// instance yang sama</span>
-  print(merah);
-}</code></pre>
-    </div>
-
-    <!-- INITIALIZER LIST -->
-    <div class="card" id="initializer-list">
-      <h2>📋 Constructor dengan Initializer List</h2>
-      <p>Inisialisasi sebelum body, berguna untuk <code>final</code> field atau validasi.</p>
-      <pre><code><span class="keyword">class</span> Titik {
-  <span class="keyword">final</span> <span class="keyword">double</span> x, y;
-  Titik(<span class="keyword">double</span> x, <span class="keyword">double</span> y)
-      : x = x.abs(),
-        y = y.abs() {
-    print(<span class="string">'Titik dibuat di ($x, $y)'</span>);
-  }
-}</code></pre>
-    </div>
-
-    <!-- PRAKTIK 1: MAHASISWA -->
-    <div class="card" id="praktik1">
-      <h2>🧑‍🎓 Praktik 1 – Multiple Constructor (Mahasiswa)</h2>
-      <p>Buat kelas dengan tiga constructor berbeda.</p>
-      <pre><code><span class="keyword">class</span> Mahasiswa {
-  String? nama;
-  <span class="keyword">int</span>? angkatan;
-
-  <span class="comment">// default</span>
-  Mahasiswa();
-
-  <span class="comment">// dari Map</span>
-  Mahasiswa.dariMap(Map&lt;String, dynamic&gt; map) {
-    nama = map[<span class="string">'nama'</span>];
-    angkatan = map[<span class="string">'angkatan'</span>];
-  }
-
-  <span class="comment">// tanpa nama (set default)</span>
-  Mahasiswa.tanpaNama() {
-    nama = <span class="string">'Anonim'</span>;
-    angkatan = 2024;
-  }
-}</code></pre>
-    </div>
-
-    <!-- ENKAPSULASI & PRIVATE -->
-    <div class="card" id="enkapsulasi">
-      <h2>🔒 Enkapsulasi & Private Field</h2>
-      <p>Menyembunyikan detail implementasi dengan underscore <code>_</code>. Private hanya dalam satu file.</p>
-      <pre><code><span class="keyword">class</span> Person {
-  String _name;   <span class="comment">// private</span>
-  <span class="keyword">int</span> age;        <span class="comment">// public</span>
-
-  Person(<span class="keyword">this</span>._name, <span class="keyword">this</span>.age);
-}</code></pre>
-    </div>
-
-    <!-- GETTER & SETTER DASAR -->
-    <div class="card" id="getter-setter">
-      <h2>📥 Getter & Setter (Dua Bentuk)</h2>
-      <pre><code><span class="keyword">class</span> Person {
-  String _name;
-  <span class="keyword">int</span> age;
-
-  Person(<span class="keyword">this</span>._name, <span class="keyword">this</span>.age);
-
-  <span class="comment">// Getter gaya 1</span>
-  String <span class="keyword">get</span> getName1 => _name;
-
-  <span class="comment">// Getter gaya 2 (method)</span>
-  String getName() => _name;
-
-  <span class="comment">// Setter gaya 1</span>
-  <span class="keyword">set</span> setName1(String name) {
-    _name = name;
-  }
-
-  <span class="comment">// Setter gaya 2</span>
-  <span class="keyword">void</span> setName(String name) {
-    _name = name;
-  }
-}</code></pre>
-    </div>
-
-    <!-- SETTER VALIDASI (PRODUK) -->
-    <div class="card">
-      <h2>✅ Setter dengan Validasi (Produk)</h2>
-      <pre><code><span class="keyword">class</span> Produk {
-  String _nama;
-  <span class="keyword">double</span> _harga;
-
-  Produk(<span class="keyword">this</span>._nama, <span class="keyword">this</span>._harga);
-
-  <span class="comment">// Getter</span>
-  String <span class="keyword">get</span> nama => _nama;
-  <span class="keyword">double</span> <span class="keyword">get</span> harga => _harga;
-
-  <span class="comment">// Setter dengan validasi</span>
-  <span class="keyword">set</span> nama(String value) {
-    <span class="keyword">if</span> (value.length >= 3) {
-      _nama = value;
-    } <span class="keyword">else</span> {
-      print(<span class="string">'Gagal: Nama minimal 3 karakter'</span>);
-    }
-  }
-
-  <span class="keyword">set</span> harga(<span class="keyword">double</span> value) {
-    <span class="keyword">if</span> (value > 0) {
-      _harga = value;
-    } <span class="keyword">else</span> {
-      print(<span class="string">'Gagal: Harga harus > 0'</span>);
-    }
-  }
-}</code></pre>
-    </div>
-
-    <!-- PRAKTIK 2: USER DENGAN VALIDASI -->
-    <div class="card" id="praktik2">
-      <h2>👤 Praktik 2 – Kelas User (Enkapsulasi Lengkap)</h2>
-      <p>Field private <code>_username</code>, <code>_password</code>, <code>_email</code> dengan validasi.</p>
-      <pre><code><span class="keyword">class</span> User {
-  String _username;
-  String _password;
-  String _email;
-
-  User(<span class="keyword">this</span>._username, <span class="keyword">this</span>._password, <span class="keyword">this</span>._email);
-
-  <span class="comment">// Getter</span>
-  String <span class="keyword">get</span> username => _username;
-  String <span class="keyword">get</span> password => _password; <span class="comment">// (hanya contoh, sebaiknya tidak diekspos)</span>
-  String <span class="keyword">get</span> email => _email;
-
-  <span class="comment">// Setter dengan validasi</span>
-  <span class="keyword">set</span> username(String value) {
-    <span class="keyword">if</span> (value.length >= 5) _username = value;
-    <span class="keyword">else</span> print(<span class="string">'Username minimal 5 karakter'</span>);
-  }
-
-  <span class="keyword">set</span> password(String value) {
-    <span class="keyword">if</span> (value.length >= 8) _password = value;
-    <span class="keyword">else</span> print(<span class="string">'Password minimal 8 karakter'</span>);
-  }
-
-  <span class="keyword">set</span> email(String value) {
-    <span class="keyword">if</span> (value.contains(<span class="string">'@'</span>)) _email = value;
-    <span class="keyword">else</span> print(<span class="string">'Email harus mengandung @'</span>);
-  }
-}</code></pre>
-    </div>
-
-    <!-- STUDI KASUS LOGIN -->
-    <div class="card" id="studikasus">
-      <h2>🔐 Studi Kasus: Sistem Login Sederhana</h2>
-      <pre><code><span class="keyword">class</span> User {
-  String _username;
-  String _password;
-
-  User(<span class="keyword">this</span>._username, <span class="keyword">this</span>._password);
-
-  String <span class="keyword">get</span> username => _username;
-
-  <span class="keyword">bool</span> login(String username, String password) {
-    <span class="keyword">return</span> _username == username && _password == password;
-  }
-
-  <span class="keyword">void</span> gantiPassword(String lama, String baru) {
-    <span class="keyword">if</span> (_password == lama) {
-      <span class="keyword">if</span> (baru.length >= 8) {
-        _password = baru;
-        print(<span class="string">'Password berhasil diubah.'</span>);
-      } <span class="keyword">else</span> {
-        print(<span class="string">'Gagal: Password baru minimal 8 karakter.'</span>);
-      }
-    } <span class="keyword">else</span> {
-      print(<span class="string">'Gagal: Password lama salah.'</span>);
-    }
-  }
-}</code></pre>
-    </div>
-
-    <!-- RINGKASAN & LATIHAN -->
-    <div class="card" id="latihan">
-      <h2>📌 Ringkasan & Latihan Mandiri</h2>
-      <ul>
-        <li>Dart memiliki berbagai jenis constructor (default, named, constant, dll).</li>
-        <li>Enkapsulasi menggunakan <code>_</code> untuk private field.</li>
-        <li>Getter/setter memberikan kontrol akses dan validasi.</li>
-      </ul>
-      <h3>🏦 Latihan: Kelas RekeningBank</h3>
-      <p>Buat kelas dengan:</p>
-      <ul>
-        <li>Field private: <code>_nomorRekening</code>, <code>_saldo</code></li>
-        <li>Method <code>deposit()</code>, <code>tarik()</code>, <code>cekSaldo()</code></li>
-        <li>Validasi: saldo tidak boleh negatif</li>
-        <li>Simulasi transaksi sederhana</li>
-      </ul>
-      <pre><code><span class="comment">// Contoh kerangka jawaban</span>
-<span class="keyword">class</span> RekeningBank {
-  String _nomorRekening;
-  <span class="keyword">double</span> _saldo = 0;
-
-  RekeningBank(<span class="keyword">this</span>._nomorRekening);
-
-  <span class="keyword">void</span> deposit(<span class="keyword">double</span> jumlah) {
-    <span class="keyword">if</span> (jumlah > 0) _saldo += jumlah;
-  }
-
-  <span class="keyword">bool</span> tarik(<span class="keyword">double</span> jumlah) {
-    <span class="keyword">if</span> (jumlah > 0 && _saldo >= jumlah) {
-      _saldo -= jumlah;
-      <span class="keyword">return</span> <span class="keyword">true</span>;
-    }
-    <span class="keyword">return</span> <span class="keyword">false</span>;
-  }
-
-  <span class="keyword">double</span> <span class="keyword">get</span> cekSaldo => _saldo;
-}</code></pre>
-    </div>
-
-    <!-- BONUS : INFORMASI TAMBAHAN -->
-    <div class="card">
-      <h2>⭐ Nilai Bonus (Soal 1 & 2)</h2>
-      <p>Soal bonus terdapat pada deskripsi materi. Berikut adalah contoh pengerjaan yang bisa dikembangkan:</p>
-      <ul>
-        <li><strong>Soal 1:</strong> Gunakan konsep named constructor dan enkapsulasi untuk membuat kelas <code>Buku</code> dengan validasi ISBN.</li>
-        <li><strong>Soal 2:</strong> Implementasi setter dengan validasi dan buat program sederhana untuk meminjam buku.</li>
-      </ul>
-      <p><em>Silakan gabungkan kode Anda di repository GitHub bersama dengan file HTML ini.</em></p>
-    </div>
-
-    <!-- =====  BAGIAN DARTPAD INTERAKTIF (POP-UP IFRAME)  ===== -->
-    <div class="card" style="margin-top: 2rem;">
-      <h2>🎯 Coba Langsung di DartPad (Klik untuk Pop-up)</h2>
-      <p>Klik salah satu tombol di bawah untuk membuka kode contoh dalam iframe interaktif. Setiap tautan adalah program Dart yang sudah siap dijalankan.</p>
-      <div class="dartpad-grid" id="dartpad-buttons">
-        <!-- tombol akan di-generate oleh JavaScript -->
-      </div>
-    </div>
-  </div>
-
-  <!-- MODAL POPUP UNTUK IFRAME -->
-  <div id="dartpadModal" class="modal">
+<!-- MODAL POPUP dengan iframe gallery -->
+<div class="modal" id="modalPopup">
     <div class="modal-content">
-      <span class="close-btn" id="closeModal">&times;</span>
-      <div class="iframe-container">
-        <iframe id="dartpadIframe" src="about:blank" title="DartPad Embed"></iframe>
-      </div>
+        <div class="modal-header">
+            <h2>📘 SESI 2 · KONSTRUKTOR & ENKAPSULASI (dengan DartPad)</h2>
+            <button class="close-btn" id="tutupPopup">&times;</button>
+        </div>
+        <div class="iframe-gallery" id="gallery">
+
+            <!-- Kartu 1: Mobil (Named constructor) -->
+            <div class="iframe-card">
+                <h3>🚗 1. Mobil – Named constructor <span>#0cb668</span></h3>
+                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=0cb668c399daf986b442f2d88312c2c0"></iframe>
+            </div>
+
+            <!-- Kartu 2: Warna (const constructor) -->
+            <div class="iframe-card">
+                <h3>🎨 2. Warna – Constant constructor <span>#144249</span></h3>
+                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=1442491281e1f65e5de31dff964a4593"></iframe>
+            </div>
+
+            <!-- Kartu 3: Titik (initializer list) -->
+            <div class="iframe-card">
+                <h3>📍 3. Titik – Initializer list <span>#8a98b6</span></h3>
+                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=8a98b6f2c12abaf21d8e6ecb928b35dc"></iframe>
+            </div>
+
+            <!-- Kartu 4: Person private -->
+            <div class="iframe-card">
+                <h3>👤 4. Person – private field <span>#e36d57</span></h3>
+                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=e36d57cf6b3f6848cbee7c19b5f91bd7"></iframe>
+            </div>
+
+            <!-- Kartu 5: Person with getter -->
+            <div class="iframe-card">
+                <h3>🔍 5. Person – Getter style <span>#5d7215</span></h3>
+                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=5d7215e1bb6aa8a4e389ed3c1e57e12a"></iframe>
+            </div>
+
+            <!-- Kartu 6: Person with setter -->
+            <div class="iframe-card">
+                <h3>✏️ 6. Person – Setter & method <span>#9cede0</span></h3>
+                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=9cede0271b357d6e3247703e835a49a8"></iframe>
+            </div>
+
+            <!-- Kartu 7: Produk (getter/setter validasi) -->
+            <div class="iframe-card">
+                <h3>📦 7. Produk – Validasi <span>#171980</span></h3>
+                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=171980b5464cb1640666b4df5bf97199"></iframe>
+            </div>
+
+            <!-- Kartu 8: User (login & ganti password) -->
+            <div class="iframe-card">
+                <h3>🔐 8. User – Login & ganti password <span>#79bd90</span></h3>
+                <iframe class="dart-embed" src="https://dartpad.dev/embed-dart.html?id=79bd900c7e934b3b8040e8684b7242fd"></iframe>
+            </div>
+
+            <!-- Bonus: Ringkasan + latihan RekeningBank (sebagai teks) -->
+            <div class="resume-summary">
+                <h4>📋 RINGKASAN MATERI & LATIHAN (SOAL 1 & 2)</h4>
+                <pre style="background:#0f172a; color:#e2e8f0; padding:1rem; border-radius:1rem; font-size:0.9rem; overflow-x:auto;">
+🏦 RekeningBank (field private _nomorRekening, _saldo)
+   • deposit(double jumlah)   — validasi > 0
+   • tarik(double jumlah)     — validasi saldo cukup & jumlah positif
+   • cekSaldo()
+
+💡 Contoh simulasi transaksi:
+  var rek1 = RekeningBank('001-234567-89', 500000);
+  rek1.deposit(200000);
+  rek1.tarik(100000);
+  rek1.tarik(700000);   // gagal (saldo kurang)
+  rek1.cekSaldo();
+
+🔸 Enkapsulasi: field private (_), getter/setter untuk kontrol.
+🔸 Jenis constructor: default, named, parameterized, const, initializer list.
+🔸 const constructor menghemat memori untuk objek immutable.
+                </pre>
+                <p style="margin-top:1rem; font-weight:bold;">✅ Bonus 2 & 3 terselesaikan (Resume + Soal 1 & 2).</p>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
-  <!-- FOOTER -->
-  <div class="footer">
-    <p>✍️ Resume Sesi 2 – Konstruktor & Enkapsulasi • Dart • OOP</p>
-    <p class="note">Dibuat sebagai bahan belajar. Lengkapi dengan latihan dan upload ke GitHub untuk penilaian.</p>
-  </div>
+<script>
+    const modal = document.getElementById('modalPopup');
+    const bukaBtn = document.getElementById('bukaPopup');
+    const tutupBtn = document.getElementById('tutupPopup');
 
-  <script>
-    (function() {
-      // Daftar ID DartPad dari link yang diberikan
-      const dartPadIds = [
-        '0cb668c399daf986b442f2d88312c2c0',
-        '1442491281e1f65e5de31dff964a4593',
-        '8a98b6f2c12abaf21d8e6ecb928b35dc',
-        'e36d57cf6b3f6848cbee7c19b5f91bd7',
-        '5d7215e1bb6aa8a4e389ed3c1e57e12a',
-        '9cede0271b357d6e3247703e835a49a8',
-        '171980b5464cb1640666b4df5bf97199',
-        '79bd900c7e934b3b8040e8684b7242fd'
-      ];
+    bukaBtn.addEventListener('click', () => {
+        modal.style.display = 'flex';
+    });
 
-      // Container untuk tombol
-      const container = document.getElementById('dartpad-buttons');
-      const modal = document.getElementById('dartpadModal');
-      const iframe = document.getElementById('dartpadIframe');
-      const closeBtn = document.getElementById('closeModal');
-
-      // Fungsi untuk menutup modal
-      function closeModal() {
+    tutupBtn.addEventListener('click', () => {
         modal.style.display = 'none';
-        iframe.src = 'about:blank'; // bersihkan iframe (opsional)
-      }
+    });
 
-      // Tutup modal jika klik di luar konten (background)
-      modal.addEventListener('click', function(event) {
-        if (event.target === modal) {
-          closeModal();
+    window.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            modal.style.display = 'none';
         }
-      });
+    });
+</script>
 
-      closeBtn.addEventListener('click', closeModal);
-
-      // Buat tombol untuk setiap ID
-      dartPadIds.forEach((id, index) => {
-        const btn = document.createElement('button');
-        btn.className = 'dartpad-btn';
-        // Beri label sederhana
-        btn.textContent = `Contoh DartPad ${index + 1}`;
-        btn.setAttribute('data-id', id);
-        
-        btn.addEventListener('click', function() {
-          // Buat embed URL
-          const embedUrl = `https://dartpad.dev/embed-inline.html?id=${id}`;
-          iframe.src = embedUrl;
-          modal.style.display = 'flex'; // tampilkan modal (flex agar centering)
-        });
-
-        container.appendChild(btn);
-      });
-
-      // Tambahan: tombol untuk semua contoh? Bisa juga tambahkan judul dari topik jika diinginkan.
-      // Agar lebih informatif, kita bisa mapping deskripsi, tapi tidak ada.
-      // Alternatif: tambahkan judul berdasarkan index.
-    })();
-  </script>
+<!-- catatan: semua iframe menggunakan embed-dart.html dengan ID dari link yang diberikan -->
 </body>
 </html>
