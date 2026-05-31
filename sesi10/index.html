@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Sesi 10: Factory Constructor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+      background: linear-gradient(145deg, #0b1120 0%, #111827 100%);
+      color: #f1f5f9;
+      line-height: 1.5;
+      padding-bottom: 3rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.5);
+    }
+
+    header h1 {
+      font-size: 2.7rem;
+      background: linear-gradient(135deg, #a5f3fc, #60a5fa);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+
+    .subhead {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1e293b;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+
+    .card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(2px);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #2d3a5e;
+      transition: transform 0.1s ease, box-shadow 0.2s;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    .card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 12px 28px rgba(59, 130, 246, 0.2);
+    }
+
+    .card h2 {
+      font-size: 1.7rem;
+      margin-bottom: 0.75rem;
+      color: #93c5fd;
+      border-left: 5px solid #3b82f6;
+      padding-left: 1rem;
+    }
+
+    .card h3 {
+      font-size: 1.3rem;
+      margin: 1rem 0 0.5rem;
+      color: #b9e0ff;
+    }
+
+    .desc {
+      margin-bottom: 1rem;
+      color: #cbd5f0;
+    }
+
+    pre {
+      background: #0f172a;
+      border-radius: 1rem;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.85rem;
+      border: 1px solid #2d3a5e;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    code {
+      font-family: 'Fira Code', monospace;
+    }
+
+    .btn-run {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      margin-top: 0.5rem;
+    }
+
+    .btn-run:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    hr {
+      border-color: #2d3a5e;
+      margin: 1rem 0;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-top: 1px solid #1e293b;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+
+    /* modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .modal-content {
+      background: #0f172a;
+      width: 90%;
+      max-width: 1100px;
+      height: 85%;
+      border-radius: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #3b82f6;
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #334155;
+      color: #e2e8f0;
+    }
+
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+
+    .close {
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #94a3b8;
+      line-height: 1;
+    }
+
+    .close:hover {
+      color: white;
+    }
+
+    .modal-body {
+      flex: 1;
+      padding: 0.5rem;
+    }
+
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 1rem;
+      background: #fefefe;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Factory Constructor</h1>
+  <p class="subhead">Sesi 10 </p>
+  <div class="badge">👩‍💻 Ratu Klarisa Rahadianti | 251410010 | SI2A</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2>Soal 1. ConnectionFactory dengan Pooling Koneksi Database</h2>
+    <p>ConnectionFactory merupakan konstruktor pabrik (factory constructor)</p>
+    <p>yang berfungsi untuk membuat sekaligus mengelola koneksi ke database.</p>
+    <p>Apabila koneksi ke host dan port yang sama telah tersedia sebelumnya</p>
+    <p>sistem akan menggunakan kembali objek koneksi yang sudah ada daripada membuat koneksi baru.</p>
+    <p>Cara ini membantu mengurangi penggunaan memori dan membuat kinerja aplikasi menjadi lebih efisien.</p>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti 
+//NIM: 251410010
+//Kelas: SI2A
+
+class ConnectionFactory {
+  final String host;
+  final int port;
+
+  static final Map&lt;String, ConnectionFactory&gt; _cache = {};
+
+  ConnectionFactory._(this.host, this.port);
+
+  factory ConnectionFactory(String host, int port) {
+    String key = '$host:$port';
+
+    if (_cache.containsKey(key)) {
+      print('Menggunakan koneksi yang sudah ada');
+      return _cache[key]!;
+    }
+
+    print('Membuat koneksi baru');
+    var connection = ConnectionFactory._(host, port);
+    _cache[key] = connection;
+
+    return connection;
+  }
+
+  void connect() {
+    print('Terhubung ke $host:$port');
+  }
+}
+
+void main() {
+  var c1 = ConnectionFactory('localhost', 3306);
+  var c2 = ConnectionFactory('localhost', 3306);
+
+  c1.connect();
+
+  print(identical(c1, c2));
+}</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=2d3ce03dcbf88e93f5e5541fb688da4d&amp;run=true">Lihat Program</button>
+  </div>
+
+  <div class="card">
+    <h2>Soal 2. NotificationFactory Memilih Subclass Berdasarkan Platform</h2>
+    <p>NotificationFactory adalah factory constructor yang berperan</p>
+    <p>dalam membuat objek notifikasi sesuai dengan platform yang</p>
+    <p>digunakan, seperti Android, iOS, maupun Web. Dengan</p>
+    <p>mekanisme ini, proses pembuatan objek menjadi lebih mudah</p>
+    <p>karena sistem akan secara otomatis menentukan dan menghasilkan</p>
+    <p>subclass yang sesuai tanpa perlu dibuat secara manual oleh pengguna.</p>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti 
+//NIM: 251410010
+//Kelas: SI2A
+
+abstract class NotificationFactory {
+  void send(String message);
+
+  factory NotificationFactory(String platform) {
+    switch (platform.toLowerCase()) {
+      case 'android':
+        return AndroidNotification();
+
+      case 'ios':
+        return IOSNotification();
+
+      case 'web':
+        return WebNotification();
+
+      default:
+        throw ArgumentError('Platform tidak dikenal');
+    }
+  }
+}
+
+class AndroidNotification implements NotificationFactory {
+  @override
+  void send(String message) {
+    print('Android Notification: $message');
+  }
+}
+
+class IOSNotification implements NotificationFactory {
+  @override
+  void send(String message) {
+    print('iOS Notification: $message');
+  }
+}
+
+class WebNotification implements NotificationFactory {
+  @override
+  void send(String message) {
+    print('Web Notification: $message');
+  }
+}
+
+void main() {
+  var notif1 = NotificationFactory('android');
+  notif1.send('Halo Android');
+
+  var notif2 = NotificationFactory('ios');
+  notif2.send('Halo iOS');
+}</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=2c794676d06ec9891b732802e41c9a85&amp;run=true">Lihat Program</button>
+  </div>
+
+  <div class="card">
+    <h2>Soal 3. ShapeFactory dengan Cache Shape yang Sama</h2>
+    <p>ShapeFactory merupakan factory constructor yang digunakan untuk menghasilkan objek bentuk (shape),</p>
+    <p>seperti lingkaran dan persegi. Factory ini memanfaatkan mekanisme cache sehingga jika objek dengan </p>
+    <p>jenis yang sama sudah pernah dibuat, objek tersebut dapat digunakan kembali tanpa perlu membuat objek baru.</p>
+    <p>Pendekatan ini membantu menghemat memori dan meningkatkan efisiensi aplikasi.</p>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti 
+//NIM: 251410010
+//Kelas: SI2A
+
+class ShapeFactory {
+  final String shape;
+
+  static final Map&lt;String, ShapeFactory&gt; _cache = {};
+
+  ShapeFactory._(this.shape);
+
+  factory ShapeFactory(String shape) {
+    if (_cache.containsKey(shape)) {
+      print('Menggunakan shape dari cache');
+      return _cache[shape]!;
+    }
+
+    print('Membuat shape baru');
+
+    var newShape = ShapeFactory._(shape);
+    _cache[shape] = newShape;
+
+    return newShape;
+  }
+
+  void draw() {
+    print('Menggambar $shape');
+  }
+}
+
+void main() {
+  var s1 = ShapeFactory('Lingkaran');
+  var s2 = ShapeFactory('Lingkaran');
+
+  s1.draw();
+
+  print(identical(s1, s2));
+}</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=2d3ce03dcbf88e93f5e5541fb688da4d&amp;run=true">Lihat Program</button>
+  </div>
+
+  <div class="card">
+    <h2>Soal 4. AnimalFactory (Challenge)</h2>
+    <p>AnimalFactory merupakan factory constructor yang berfungsi untuk membuat objek </p>
+    <p>hewan sesuai dengan masukan yang diberikan pengguna. Factory ini dapat melakukan pengecekan</p>
+    <p>validitas data, menentukan jenis subclass yang tepat secara otomatis, serta menyimpan objek yang telah </p>
+    <p>dibuat ke dalam cache. Dengan demikian, objek yang sudah tersedia dapat digunakan kembali tanpa perlu dibuat ulang, </p>
+    <p>sehingga proses menjadi lebih efisien.</p>
+    <pre><code>//Nama: Ratu Klarisa Rahadianti 
+//NIM: 251410010
+//Kelas: SI2A
+
+abstract class AnimalFactory {
+  String name;
+
+  AnimalFactory(this.name);
+
+  void sound();
+
+  static final Map&lt;String, AnimalFactory&gt; _cache = {};
+
+  factory AnimalFactory.create(String type, String name) {
+    if (name.isEmpty) {
+      throw ArgumentError('Nama hewan tidak boleh kosong');
+    }
+
+    String key = '$type-$name';
+
+    if (_cache.containsKey(key)) {
+      print('Mengambil hewan dari cache');
+      return _cache[key]!;
+    }
+
+    AnimalFactory animal;
+
+    switch (type.toLowerCase()) {
+      case 'cat':
+        animal = Cat(name);
+        break;
+
+      case 'dog':
+        animal = Dog(name);
+        break;
+
+      case 'bird':
+        animal = Bird(name);
+        break;
+
+      default:
+        throw ArgumentError('Jenis hewan tidak dikenal');
+    }
+
+    _cache[key] = animal;
+
+    return animal;
+  }
+}
+
+class Cat extends AnimalFactory {
+  Cat(String name) : super(name);
+
+  @override
+  void sound() {
+    print('$name berkata: Meow');
+  }
+}
+
+class Dog extends AnimalFactory {
+  Dog(String name) : super(name);
+
+  @override
+  void sound() {
+    print('$name berkata: Guk Guk');
+  }
+}
+
+class Bird extends AnimalFactory {
+  Bird(String name) : super(name);
+
+  @override
+  void sound() {
+    print('$name berkata: Cuit Cuit');
+  }
+}
+
+void main() {
+  var a1 = AnimalFactory.create('cat', 'Milo');
+  var a2 = AnimalFactory.create('cat', 'Milo');
+
+  a1.sound();
+
+  print(identical(a1, a2));
+}</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=2d3ce03dcbf88e93f5e5541fb688da4d&amp;run=true">Lihat Program</button>
+  </div>
+
+  <div class="card">
+    <h2>Kesimpulan Poin Penting</h2>
+    <p><strong>Ringkasan</strong>
+    <p>- ConnectionFactory berfungsi untuk membuat dan mengatur koneksi database sehingga koneksi yang sudah ada dapat digunakan kembali secara efisien.</p>
+    <p>- NotificationFactory digunakan untuk menentukan dan menghasilkan objek notifikasi yang sesuai dengan platform yang digunakan.</p>
+    <p>- ShapeFactory berperan dalam mengelola objek shape dengan memanfaatkan cache agar objek dengan tipe yang sama tidak perlu dibuat berulang kali.</p>
+    <p>- AnimalFactory digunakan untuk menghasilkan objek hewan berdasarkan input pengguna, dilengkapi dengan validasi data, pemilihan subclass secara otomatis, serta penyimpanan objek dalam cache untuk meningkatkan efisiensi.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>📁 Sesi 10 – | Dibuat untuk GitHub Pages</p>
+  <p>Ratu Klarisa Rahadianti — 251410010 — SI2A</p>
+</footer>
+
+<div id="codeModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">DartPad Runner</h3>
+      <span class="close" id="closeModalBtn">&times;</span>
+    </div>
+    <div class="modal-body">
+      <iframe id="dartpadIframe" title="DartPad" src="about:blank"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('codeModal');
+  const modalIframe = document.getElementById('dartpadIframe');
+  const closeBtn = document.getElementById('closeModalBtn');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.querySelector('.modal-body');
+
+  function openDartPad(embedUrl, programTitle) {
+    while (modalBody.firstChild) {
+      modalBody.removeChild(modalBody.firstChild);
+    }
+    modalIframe.style.display = 'block';
+    modalBody.appendChild(modalIframe);
+    modalIframe.src = embedUrl;
+    modalTitle.innerText = programTitle;
+    modal.style.display = 'flex';
+  }
+
+  // Fungsi untuk menampilkan gambar capture (opsional, tidak digunakan di sini)
+  window.openImage = function(imgUrl) {
+    while (modalBody.firstChild) {
+      modalBody.removeChild(modalBody.firstChild);
+    }
+    modalIframe.style.display = 'none';
+    const img = document.createElement('img');
+    img.src = imgUrl;
+    img.alt = 'Capture Gambar';
+    img.style.maxWidth = '100%';
+    img.style.maxHeight = '70vh';
+    img.style.width = 'auto';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+    img.style.margin = 'auto';
+    img.style.borderRadius = '12px';
+    img.style.boxShadow = '0 0 20px rgba(0,0,0,0.5)';
+    img.style.objectFit = 'contain';
+    img.onerror = () => {
+      img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2"%3E%3Crect x="2" y="2" width="20" height="20" rx="2" /%3E%3Cpath d="M8 8 L16 16 M16 8 L8 16" /%3E%3Ctext x="12" y="20" font-size="8" text-anchor="middle" fill="red"%3EGagal load%3C/text%3E%3C/svg%3E';
+      img.style.width = '150px';
+      img.style.height = 'auto';
+    };
+    modalBody.appendChild(img);
+    modalTitle.innerText = '📸 Capture Gambar';
+    modal.style.display = 'flex';
+  };
+
+  document.querySelectorAll('.btn-run').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const src = btn.getAttribute('data-src');
+      if (src) {
+        e.preventDefault();
+        const card = btn.closest('.card');
+        const programName = card?.querySelector('h2')?.innerText || 'Program Dart';
+        openDartPad(src, programName);
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    modalIframe.src = 'about:blank';
+    while (modalBody.firstChild) {
+      modalBody.removeChild(modalBody.firstChild);
+    }
+    modalIframe.style.display = 'block';
+    modalBody.appendChild(modalIframe);
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      modalIframe.src = 'about:blank';
+      while (modalBody.firstChild) {
+        modalBody.removeChild(modalBody.firstChild);
+      }
+      modalIframe.style.display = 'block';
+      modalBody.appendChild(modalIframe);
+    }
+  });
+</script>
+</body>
+</html>
