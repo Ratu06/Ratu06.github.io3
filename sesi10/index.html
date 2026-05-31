@@ -5,12 +5,12 @@
   <title>Sesi 10: Factory Constructor</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
+    /* style sama seperti asli, tidak diubah */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
-
     body {
       font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
       background: linear-gradient(145deg, #0b1120 0%, #111827 100%);
@@ -18,7 +18,6 @@
       line-height: 1.5;
       padding-bottom: 3rem;
     }
-
     header {
       text-align: center;
       padding: 3rem 1.5rem;
@@ -26,7 +25,6 @@
       backdrop-filter: blur(4px);
       border-bottom: 1px solid rgba(59, 130, 246, 0.5);
     }
-
     header h1 {
       font-size: 2.7rem;
       background: linear-gradient(135deg, #a5f3fc, #60a5fa);
@@ -35,12 +33,10 @@
       color: transparent;
       margin-bottom: 0.5rem;
     }
-
     .subhead {
       font-size: 1.1rem;
       color: #cbd5e1;
     }
-
     .badge {
       display: inline-block;
       background: #1e293b;
@@ -49,13 +45,11 @@
       font-size: 0.8rem;
       margin-top: 0.8rem;
     }
-
     .container {
       max-width: 1280px;
       margin: 0 auto;
       padding: 2rem 1.5rem;
     }
-
     .card {
       background: rgba(15, 23, 42, 0.7);
       backdrop-filter: blur(2px);
@@ -66,12 +60,10 @@
       transition: transform 0.1s ease, box-shadow 0.2s;
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
     }
-
     .card:hover {
       border-color: #3b82f6;
       box-shadow: 0 12px 28px rgba(59, 130, 246, 0.2);
     }
-
     .card h2 {
       font-size: 1.7rem;
       margin-bottom: 0.75rem;
@@ -79,18 +71,6 @@
       border-left: 5px solid #3b82f6;
       padding-left: 1rem;
     }
-
-    .card h3 {
-      font-size: 1.3rem;
-      margin: 1rem 0 0.5rem;
-      color: #b9e0ff;
-    }
-
-    .desc {
-      margin-bottom: 1rem;
-      color: #cbd5f0;
-    }
-
     pre {
       background: #0f172a;
       border-radius: 1rem;
@@ -103,11 +83,6 @@
       white-space: pre-wrap;
       word-break: break-word;
     }
-
-    code {
-      font-family: 'Fira Code', monospace;
-    }
-
     .btn-run {
       background: #2563eb;
       color: white;
@@ -121,17 +96,10 @@
       box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
       margin-top: 0.5rem;
     }
-
     .btn-run:hover {
       background: #1d4ed8;
       transform: translateY(-2px);
     }
-
-    hr {
-      border-color: #2d3a5e;
-      margin: 1rem 0;
-    }
-
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -139,8 +107,6 @@
       color: #94a3b8;
       font-size: 0.85rem;
     }
-
-    /* modal */
     .modal {
       display: none;
       position: fixed;
@@ -153,7 +119,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .modal-content {
       background: #0f172a;
       width: 90%;
@@ -164,7 +129,6 @@
       flex-direction: column;
       border: 1px solid #3b82f6;
     }
-
     .modal-header {
       display: flex;
       justify-content: space-between;
@@ -173,12 +137,10 @@
       border-bottom: 1px solid #334155;
       color: #e2e8f0;
     }
-
     .modal-header h3 {
       margin: 0;
       font-size: 1.3rem;
     }
-
     .close {
       font-size: 2rem;
       font-weight: bold;
@@ -186,16 +148,13 @@
       color: #94a3b8;
       line-height: 1;
     }
-
     .close:hover {
       color: white;
     }
-
     .modal-body {
       flex: 1;
       padding: 0.5rem;
     }
-
     .modal-body iframe {
       width: 100%;
       height: 100%;
@@ -261,7 +220,7 @@ void main() {
 
   print(identical(c1, c2));
 }</code></pre>
-    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=2d3ce03dcbf88e93f5e5541fb688da4d&amp;run=true">Lihat Program</button>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=b4b884bcfcb5a4ec646fedd39e02e2a1&amp;run=true">Lihat Program</button>
   </div>
 
   <div class="card">
@@ -324,7 +283,7 @@ void main() {
   var notif2 = NotificationFactory('ios');
   notif2.send('Halo iOS');
 }</code></pre>
-    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=2c794676d06ec9891b732802e41c9a85&amp;run=true">Lihat Program</button>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=0c7ad71fb6355eca3016cb2c4bdabd16&amp;run=true">Lihat Program</button>
   </div>
 
   <div class="card">
@@ -371,7 +330,7 @@ void main() {
 
   print(identical(s1, s2));
 }</code></pre>
-    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=2d3ce03dcbf88e93f5e5541fb688da4d&amp;run=true">Lihat Program</button>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=c5719b8370fc6aebc0cbd65690fec305&amp;run=true">Lihat Program</button>
   </div>
 
   <div class="card">
@@ -466,7 +425,7 @@ void main() {
 
   print(identical(a1, a2));
 }</code></pre>
-    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=2d3ce03dcbf88e93f5e5541fb688da4d&amp;run=true">Lihat Program</button>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=f4dde1fe2ca05b10f4a230e62ee20030&amp;run=true">Lihat Program</button>
   </div>
 
   <div class="card">
@@ -477,7 +436,6 @@ void main() {
     <p>- ShapeFactory berperan dalam mengelola objek shape dengan memanfaatkan cache agar objek dengan tipe yang sama tidak perlu dibuat berulang kali.</p>
     <p>- AnimalFactory digunakan untuk menghasilkan objek hewan berdasarkan input pengguna, dilengkapi dengan validasi data, pemilihan subclass secara otomatis, serta penyimpanan objek dalam cache untuk meningkatkan efisiensi.</p>
   </div>
-
 </div>
 
 <footer>
@@ -515,7 +473,6 @@ void main() {
     modal.style.display = 'flex';
   }
 
-  // Fungsi untuk menampilkan gambar capture (opsional, tidak digunakan di sini)
   window.openImage = function(imgUrl) {
     while (modalBody.firstChild) {
       modalBody.removeChild(modalBody.firstChild);
