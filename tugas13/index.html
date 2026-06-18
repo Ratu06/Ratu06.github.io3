@@ -237,160 +237,259 @@
 
   <div class="card">
     <h2>IMPLEMENTASI SOURCE CODE DALAM DART</h2>
-    <pre><code>//Nama: Ratu Klarisa Rahadianti (251410010)
-//Nama: Alicia Putri Lestari (251410011)
-//Kelas: SI2A
+    <pre><code><pre><code>// ======================================================
+// NAMA : Ratu Klarisa Rahadianti (251410010)
+// NAMA : Alicia Putri Lestari (251410011)
+// KELAS: SI2A
+// PROJECT : Sistem Pemesanan Makanan Online (OOP Dart)
+// ======================================================
 
-  class MenuMakanan {
-  String nama;
-  double harga;
-  String kategori;
-  bool tersedia;
+// ======================================================
+// CLASS MENU MAKANAN
+// Berfungsi menyimpan &amp; mengelola data menu makanan/minuman
+// yang dijual, termasuk status ketersediaan stoknya.
+// ======================================================
+class MenuMakanan {
+  // ---------------- PROPERTI ----------------
+  String nama;      // nama menu makanan/minuman
+  double harga;     // harga satuan menu (dalam Rupiah)
+  String kategori;  // kategori menu, contoh: Makanan / Minuman
+  bool tersedia;    // status stok: true = tersedia, false = habis
 
+  // ---------------- CONSTRUCTOR ----------------
+  // Membuat objek menu baru lengkap dengan nama, harga,
+  // kategori, dan status ketersediaan awal.
   MenuMakanan(this.nama, this.harga, this.kategori, this.tersedia);
 
+  // ---------------- METHOD ----------------
+  // Menampilkan seluruh informasi menu ke layar.
   void tampilkanInfo() {
-    print("Nama     : $nama");
-    print("Harga    : Rp$harga");
-    print("Kategori : $kategori");
-    print("Status   : ${tersedia ? 'Tersedia' : 'Habis'}");
+    print("Nama Menu : $nama");
+    print("Harga     : Rp$harga");
+    print("Kategori  : $kategori");
+    print("Status    : ${tersedia ? 'Tersedia' : 'Habis'}");
   }
 
+  // Mengubah status menu menjadi tidak tersedia (stok habis).
   void tandaiHabis() {
-    if (tersedia) {
-      tersedia = false;
-      print("Menu '$nama' sekarang habis.");
-    } else {
-      print("Menu '$nama' memang sudah habis.");
-    }
+    tersedia = false;
   }
 
+  // Mengubah status menu menjadi tersedia kembali (restock).
   void tandaiTersedia() {
-    if (!tersedia) {
-      tersedia = true;
-      print("Menu '$nama' sekarang tersedia kembali.");
-    } else {
-      print("Menu '$nama' memang sudah tersedia.");
-    }
+    tersedia = true;
   }
 }
 
-// ================================
+// ======================================================
 // CLASS PELANGGAN
-// ================================
+// Berfungsi menyimpan data diri pelanggan dan menjadi pihak
+// yang mengajukan permintaan pemesanan ke class Pesanan.
+// ======================================================
 class Pelanggan {
-  String nama;
-  String idPelanggan;
-  String alamat;
-  int totalPesanan;
+  // ---------------- PROPERTI ----------------
+  String nama;         // nama lengkap pelanggan
+  String idPelanggan;  // kode unik identitas pelanggan
+  String alamat;       // alamat pelanggan untuk pengiriman
+  int totalPesanan;    // jumlah pesanan yang berhasil dibuat pelanggan
 
+  // ---------------- CONSTRUCTOR ----------------
+  // totalPesanan otomatis diisi 0 karena pelanggan baru belum
+  // memiliki riwayat pesanan.
   Pelanggan(this.nama, this.idPelanggan, this.alamat)
       : totalPesanan = 0;
 
+  // ---------------- METHOD ----------------
+  // Menampilkan seluruh data diri &amp; riwayat pesanan pelanggan.
   void tampilkanInfo() {
-    print("Nama Pelanggan : $nama");
-    print("ID Pelanggan   : $idPelanggan");
-    print("Alamat         : $alamat");
-    print("Total Pesanan  : $totalPesanan kali");
+    print("Nama          : $nama");
+    print("ID Pelanggan  : $idPelanggan");
+    print("Alamat        : $alamat");
+    print("Total Pesanan : $totalPesanan");
   }
 
+  // Pelanggan meminta sistem memproses sebuah objek Pesanan.
+  // Jika pesanan berhasil diproses (menu tersedia), counter
+  // totalPesanan milik pelanggan bertambah satu.
   void buatPesanan(Pesanan pesanan) {
     pesanan.prosesPesanan();
+
     if (pesanan.status == "Berhasil") {
       totalPesanan++;
     }
   }
 }
 
-// ================================
+// ======================================================
 // CLASS PESANAN
-// ================================
+// Berfungsi mengelola transaksi pemesanan: mengecek
+// ketersediaan menu, menghitung total harga, menentukan
+// status transaksi, dan mencetak struk.
+// ======================================================
 class Pesanan {
-  String idPesanan;
-  Pelanggan pelanggan;
-  MenuMakanan menu;
-  int jumlah;
-  double totalHarga;
-  String status;
+  // ---------------- PROPERTI ----------------
+  String idPesanan;       // kode unik transaksi pesanan
+  Pelanggan pelanggan;    // referensi objek pelanggan pemesan
+  MenuMakanan menu;       // referensi objek menu yang dipesan
+  int jumlah;             // jumlah porsi/unit menu yang dipesan
+  double totalHarga;      // hasil perkalian harga menu x jumlah
+  String status;          // status transaksi: Menunggu/Berhasil/Gagal
 
-  Pesanan(this.idPesanan, this.pelanggan, this.menu, this.jumlah)
+  // ---------------- CONSTRUCTOR ----------------
+  // totalHarga dihitung otomatis saat objek dibuat. status
+  // awal selalu "Menunggu" sebelum diproses oleh sistem.
+  Pesanan(
+      this.idPesanan,
+      this.pelanggan,
+      this.menu,
+      this.jumlah)
       : totalHarga = menu.harga * jumlah,
         status = "Menunggu";
 
+  // ---------------- METHOD ----------------
+  // Memvalidasi pesanan dengan mengecek ketersediaan menu.
+  // Jika menu masih tersedia, status diubah jadi "Berhasil";
+  // jika menu sudah habis, status diubah jadi "Gagal".
   void prosesPesanan() {
     if (menu.tersedia) {
       status = "Berhasil";
-      menu.tandaiHabis();
-      print("Pesanan '$idPesanan' berhasil dibuat!");
     } else {
       status = "Gagal";
-      print("Pesanan gagal, menu '${menu.nama}' sedang habis.");
     }
   }
 
+  // Mencetak struk/rincian transaksi pesanan ke layar.
   void tampilkanStruk() {
-    print("====== STRUK PESANAN ======");
-    print("ID Pesanan  : $idPesanan");
-    print("Pelanggan   : ${pelanggan.nama}");
-    print("Alamat      : ${pelanggan.alamat}");
-    print("Menu        : ${menu.nama}");
-    print("Jumlah      : $jumlah porsi");
-    print("Total Bayar : Rp$totalHarga");
-    print("Status      : $status");
-    print("===========================");
+    print("\n==============================");
+    print("ID Pesanan : $idPesanan");
+    print("Pelanggan  : ${pelanggan.nama}");
+    print("Menu       : ${menu.nama}");
+    print("Jumlah     : $jumlah");
+    print("Total      : Rp$totalHarga");
+    print("Status     : $status");
+    print("==============================");
   }
 }
 
-// ================================
-// MAIN – INTERAKSI ANTAR OBJEK
-// ================================
+// ======================================================
+// MAIN PROGRAM
+// ======================================================
 void main() {
-  // Membuat objek menu makanan
-  MenuMakanan m1 = MenuMakanan("Nasi Goreng Spesial", 25000, "Makanan", true);
-  MenuMakanan m2 = MenuMakanan("Es Teh Manis", 8000, "Minuman", true);
-  MenuMakanan m3 = MenuMakanan("Mie Ayam Bakso", 20000, "Makanan", false);
 
-  // Membuat objek pelanggan
-  Pelanggan p1 = Pelanggan("Rina", "P001", "Jl. Melati No. 5");
-  Pelanggan p2 = Pelanggan("Dika", "P002", "Jl. Kenanga No. 12");
+  // ==========================
+  // PENJELASAN PENGGUNAAN APLIKASI
+  // ==========================
+  print("======================================================");
+  print("APLIKASI SISTEM PEMESANAN MAKANAN ONLINE");
+  print("------------------------------------------------------");
+  print("Alur kerja aplikasi:");
+  print("1. Sistem menyiapkan daftar menu (class MenuMakanan).");
+  print("2. Pelanggan terdaftar dengan data diri (class Pelanggan).");
+  print("3. Pelanggan membuat pesanan terhadap salah satu menu");
+  print("   (class Pesanan), lalu sistem mengecek ketersediaan menu.");
+  print("4. Jika menu tersedia -> status pesanan 'Berhasil' dan");
+  print("   totalPesanan pelanggan bertambah. Jika menu habis ->");
+  print("   status pesanan 'Gagal'.");
+  print("5. Sistem mencetak struk tiap pesanan, lalu menampilkan");
+  print("   rekap data seluruh pelanggan.");
+  print("======================================================\n");
 
-  // ---- Informasi Awal ----
-  print("--- Info Menu Makanan Awal ---");
+  // ==========================
+  // DATA MENU (5 MENU)
+  // ==========================
+  MenuMakanan m1 =
+      MenuMakanan("Nasi Goreng Spesial", 25000, "Makanan", true);
+
+  MenuMakanan m2 =
+      MenuMakanan("Mie Ayam Bakso", 20000, "Makanan", true);
+
+  MenuMakanan m3 =
+      MenuMakanan("Ayam Geprek", 22000, "Makanan", true);
+
+  MenuMakanan m4 =
+      MenuMakanan("Es Teh Manis", 8000, "Minuman", true);
+
+  MenuMakanan m5 =
+      MenuMakanan("Jus Alpukat", 15000, "Minuman", true);
+
+  // ==========================
+  // DATA PELANGGAN (12 ORANG)
+  // ==========================
+  Pelanggan p1 = Pelanggan("Alicia", "P001", "Palembang");
+  Pelanggan p2 = Pelanggan("Risa", "P002", "Palembang");
+  Pelanggan p3 = Pelanggan("Andi", "P003", "Palembang");
+  Pelanggan p4 = Pelanggan("Budi", "P004", "Palembang");
+  Pelanggan p5 = Pelanggan("Citra", "P005", "Palembang");
+  Pelanggan p6 = Pelanggan("Dina", "P006", "Palembang");
+  Pelanggan p7 = Pelanggan("Eka", "P007", "Palembang");
+  Pelanggan p8 = Pelanggan("Farah", "P008", "Palembang");
+  Pelanggan p9 = Pelanggan("Gilang", "P009", "Palembang");
+  Pelanggan p10 = Pelanggan("Hana", "P010", "Palembang");
+  Pelanggan p11 = Pelanggan("Indra", "P011", "Palembang");
+  Pelanggan p12 = Pelanggan("Joko", "P012", "Palembang");
+
+  // ==========================
+  // DATA PESANAN (12 PESANAN)
+  // ==========================
+  List&lt;Pesanan&gt; daftarPesanan = [
+    Pesanan("ORD001", p1, m1, 2),
+    Pesanan("ORD002", p2, m2, 1),
+    Pesanan("ORD003", p3, m3, 2),
+    Pesanan("ORD004", p4, m4, 3),
+    Pesanan("ORD005", p5, m5, 1),
+    Pesanan("ORD006", p6, m1, 2),
+    Pesanan("ORD007", p7, m2, 1),
+    Pesanan("ORD008", p8, m3, 2),
+    Pesanan("ORD009", p9, m4, 4),
+    Pesanan("ORD010", p10, m5, 2),
+    Pesanan("ORD011", p11, m1, 1),
+    Pesanan("ORD012", p12, m2, 3),
+  ];
+
+  // ==========================
+  // MENAMPILKAN MENU
+  // ==========================
+  print("===== DAFTAR MENU =====");
+
   m1.tampilkanInfo();
   print("");
+
   m2.tampilkanInfo();
   print("");
+
   m3.tampilkanInfo();
-
-  // ---- Proses Pemesanan ----
-  print("\n--- Rina Memesan Nasi Goreng ---");
-  Pesanan ps1 = Pesanan("ORD001", p1, m1, 2);
-  p1.buatPesanan(ps1);
-
-  print("\n--- Dika Memesan Menu yang Habis ---");
-  Pesanan ps2 = Pesanan("ORD002", p2, m3, 1);
-  p2.buatPesanan(ps2);
-
-  print("\n--- Dika Memesan Es Teh Manis ---");
-  Pesanan ps3 = Pesanan("ORD003", p2, m2, 3);
-  p2.buatPesanan(ps3);
-
-  // ---- Struk Pesanan ----
-  print("\n--- Struk Pesanan Berhasil ---");
-  ps1.tampilkanStruk();
   print("");
-  ps3.tampilkanStruk();
 
-  // ---- Info Akhir ----
-  print("\n--- Info Menu Setelah Transaksi ---");
-  m1.tampilkanInfo();
-
-  print("\n--- Info Pelanggan Setelah Pesan ---");
-  p1.tampilkanInfo();
+  m4.tampilkanInfo();
   print("");
-  p2.tampilkanInfo();
-}</code></pre>
-    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=dde6c23d8173e39ec49a05fe038ed039&amp;run=true">Lihat Program</button>
+
+  m5.tampilkanInfo();
+
+  // ==========================
+  // MEMPROSES SEMUA PESANAN
+  // ==========================
+  print("\n===== PROSES PESANAN =====");
+
+  for (var pesanan in daftarPesanan) {
+    pesanan.pelanggan.buatPesanan(pesanan);
+    pesanan.tampilkanStruk();
+  }
+
+  // ==========================
+  // MENAMPILKAN DATA PELANGGAN
+  // ==========================
+  print("\n===== DATA PELANGGAN =====");
+
+  List&lt;Pelanggan&gt; pelanggan = [
+    p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12
+  ];
+
+  for (var p in pelanggan) {
+    p.tampilkanInfo();
+    print("");
+  }
+}</code></pre></code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=d8e167c575debe1699323032c7cc3e84&amp;run=true">Lihat Program</button>
   </div>
   <div class="card">
     <h2>kesimpulan</h2>
