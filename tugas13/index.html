@@ -1,4 +1,243 @@
-// ======================================================
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>sistem Pemesanan Makanan Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+      background: linear-gradient(145deg, #0b1120 0%, #111827 100%);
+      color: #f1f5f9;
+      line-height: 1.5;
+      padding-bottom: 3rem;
+    }
+    header {
+      text-align: center;
+      padding: 3rem 1.5rem;
+      background: rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(4px);
+      border-bottom: 1px solid rgba(59, 130, 246, 0.5);
+    }
+    header h1 {
+      font-size: 2.7rem;
+      background: linear-gradient(135deg, #a5f3fc, #60a5fa);
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      margin-bottom: 0.5rem;
+    }
+    .subhead {
+      font-size: 1.1rem;
+      color: #cbd5e1;
+    }
+    .badge {
+      display: inline-block;
+      background: #1e293b;
+      padding: 0.2rem 0.8rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      margin-top: 0.8rem;
+    }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem;
+    }
+    .card {
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(2px);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      border: 1px solid #2d3a5e;
+      transition: transform 0.1s ease, box-shadow 0.2s;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    .card:hover {
+      border-color: #3b82f6;
+      box-shadow: 0 12px 28px rgba(59, 130, 246, 0.2);
+    }
+    .card h2 {
+      font-size: 1.7rem;
+      margin-bottom: 0.75rem;
+      color: #93c5fd;
+      border-left: 5px solid #3b82f6;
+      padding-left: 1rem;
+    }
+    pre {
+      background: #0f172a;
+      border-radius: 1rem;
+      padding: 1rem;
+      overflow-x: auto;
+      font-family: 'Fira Code', 'Cascadia Code', monospace;
+      font-size: 0.85rem;
+      border: 1px solid #2d3a5e;
+      margin: 1rem 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .btn-run {
+      background: #2563eb;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+      margin-top: 0.5rem;
+    }
+    .btn-run:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      border-top: 1px solid #1e293b;
+      color: #94a3b8;
+      font-size: 0.85rem;
+    }
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+    }
+    .modal-content {
+      background: #0f172a;
+      width: 90%;
+      max-width: 1100px;
+      height: 85%;
+      border-radius: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #3b82f6;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid #334155;
+      color: #e2e8f0;
+    }
+    .modal-header h3 {
+      margin: 0;
+      font-size: 1.3rem;
+    }
+    .close {
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      color: #94a3b8;
+      line-height: 1;
+    }
+    .close:hover {
+      color: white;
+    }
+    .modal-body {
+      flex: 1;
+      padding: 0.5rem;
+    }
+    .modal-body iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 1rem;
+      background: #fefefe;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>Sistem Pemesanan Makanan Online</h1>
+  <p class="subhead">Studi Kasus </p>
+  <div class="badge">👩‍💻 Ratu Klarisa Rahadianti | 251410010 | SI2A</div>
+  <div class="badge">👩‍💻 Alicia Putri Lestari | 251410011 | SI2A</div>
+</header>
+
+<div class="container">
+
+  <div class="card">
+    <h2> Masalahnya </h2>
+    <p>Di era digital seperti sekarang, banyak warung makan, kantin, dan restoran kecil masih mengandalkan cara konvensional dalam menerima pesanan makanan, yaitu melalui telepon, pesan WhatsApp, atau bahkan datang langsung ke tempat. 
+  Cara ini menimbulkan berbagai permasalahan nyata yang sering terjadi sehari-hari, antara lain:</p>
+   <br>
+  <p><strong>a. Kesalahan Pencatatan Pesanan</strong></p>
+  <p>Ketika pesanan diterima melalui chat atau telepon, pemilik toko harus mencatat secara manual. Hal ini sangat rentan terhadap kesalahan, misalnya salah mencatat nama menu, jumlah porsi, atau alamat pengiriman pelanggan.</p>
+   <p><strong>B.Tidak Ada Informasi Stok Real-time</strong></p>
+   <p>Pemilik tidak mengetahui secara langsung menu mana yang sudah habis terjual. Akibatnya, pelanggan sudah memesan tetapi baru diberitahu menu habis setelah menunggu lama.</p>
+     <p><strong>c. Sulit Melacak Riwayat Pesanan</strong></p>
+     <p>Karena semua dicatat manual, sulit bagi pemilik untuk mengetahui berapa total pesanan seorang pelanggan, menu apa yang paling laris, atau berapa pendapatan hari ini.</p>
+     <p><strong>d. Pelayanan Lambat dan Tidak Efisien</strong></p>
+     <p>Proses pemesanan yang panjang dan manual membuat pelanggan harus menunggu konfirmasi lebih lama, sehingga menurunkan kepuasan pelanggan.</p>
+     <p><strong>Kesimpulan Masalah:</strong></p>
+     <p>Dibutuhkan sebuah Sistem Pemesanan Makanan Online berbasis OOP yang mampu mengelola data menu makanan, data pelanggan, dan transaksi pesanan secara otomatis, terstruktur, dan efisien.</p>
+     </div>
+
+  <div class="card">
+    <h2>Kenapa Masalah Ini Perlu Diselesaikan dengan OOP?</h2>
+    <p>Masalah sistem pemesanan makanan online sangat tepat diselesaikan menggunakan pendekatan Object-Oriented Programming (OOP) karena beberapa alasan berikut:</p>
+    <br>
+    <p><strong>a. Ada Banyak Entitas Nyata yang Bisa Dimodelkan sebagai Class</strong></p>
+    <p>Dalam sistem ini, terdapat entitas-entitas nyata yang masing-masing memiliki data (atribut) dan perilaku (method) tersendiri:</p>
+    <p>- MenuMakanan → memiliki nama, harga, kategori, dan status ketersediaan</p>
+    <p>- Pelanggan → memiliki identitas dan bisa melakukan tindakan pemesanan</p>
+    <p>- Pesanan → menghubungkan pelanggan dengan menu yang dipesan, menyimpan status transaksi</p>
+    <br>
+    <p><strong>b. Enkapsulasi Melindungi Data Penting</strong></p>
+    <p>Dengan OOP, data sensitif seperti status ketersediaan menu tidak bisa diubah sembarangan dari luar class. Perubahan hanya bisa dilakukan melalui method khusus seperti tandaiHabis() dan tandaiTersedia(). Ini mencegah bug dan kesalahan data yang tidak disengaja.</p>
+    <br>
+    <p><strong>c. Abstraksi Menyembunyikan Kompleksitas</strong></p>
+    <p>Ketika pelanggan memesan, cukup memanggil buatPesanan(pesanan). Di balik method tersebut, sistem otomatis mengecek ketersediaan menu, memproses pesanan, dan memperbarui data — tanpa perlu diketahui detailnya oleh pihak luar.</p>
+    <br>
+    <p><strong>d. Interaksi Antar Objek Mencerminkan Dunia Nyata</strong></p>
+    <p>Sama seperti di dunia nyata, dalam sistem ini objek-objek saling berinteraksi:</p>
+    <P>- Objek Pelanggan memanggil method pada objek Pesanan</P>
+    <p>- Objek Pesanan memanggil method pada objek MenuMakanan</p>
+    <P>Ini adalah gambaran nyata bagaimana OOP bekerja dalam konteks kehidupan sehari-hari.</p>
+      <br>
+    <p><strong>e. Mudah Dikembangkan (Extensible)</strong></p>
+    <p>Jika suatu saat ingin menambahkan fitur baru seperti Kurir, Rating Makanan, atau Metode Pembayaran, cukup menambahkan class baru tanpa mengubah class yang sudah ada. Ini tidak bisa dilakukan semudah ini jika menggunakan pendekatan prosedural.</p>
+</div>
+
+  <div class="card">
+    <h2>Langkah Penyelesaian Masalah</h2>
+    <p>1. Mengidentifikasi objek utama, yaitu MenuMakanan, Pelanggan, dan Pesanan.</p>
+    <p>2. Membuat class beserta atribut dan methodnya:</p>
+    <p>MenuMakanan: nama, harga, kategori, tersedia.</p>
+    <p>Pelanggan: nama, ID pelanggan, alamat, total pesanan.</p>
+    <p>Pesanan: ID pesanan, menu, pelanggan, jumlah, total harga, status.</p>
+    <p>3. Mengimplementasikan program, yaitu pelanggan melakukan pemesanan, sistem mengecek ketersediaan menu, memproses pesanan, dan menampilkan hasil transaksi.</p>
+    <p>4. Menerapkan konsep OOP:</p>
+    <p>Class & Object untuk memodelkan data.</p>
+    <p>Enkapsulasi untuk melindungi data.</p>
+    <p>Abstraksi untuk menyederhanakan proses.</p>
+    <p>Interaksi Objek untuk menjalankan transaksi.</p>
+    <p>Constructor untuk memberikan nilai awal objek.</p>
+    <br>
+    <p>Hasil: Sistem pemesanan makanan online dapat mengelola menu, pelanggan, dan pesanan secara lebih terstruktur, cepat, dan efisien.</p>
+  </div>
+
+  <div class="card">
+    <h2>IMPLEMENTASI SOURCE CODE DALAM DART</h2>
+    <pre><code>// ======================================================
 // NAMA : Ratu Klarisa Rahadianti (251410010)
 // NAMA : Alicia Putri Lestari (251410011)
 // KELAS: SI2A
@@ -16,7 +255,7 @@ CLASS DIAGRAM
 | - kategori: String|       | - alamat: String  |
 | - tersedia: bool  |       | - totalPesanan: int|
 +-------------------+       | - riwayatPesanan: |
-| + tampilkanInfo() |       |   List<Pesanan>   |
+| + tampilkanInfo() |       |   List&lt;Pesanan&gt;  |
 | + tandaiHabis()   |       +-------------------+
 | + tandaiTersedia()|       | + tampilkanInfo() |
 +-------------------+       | + buatPesanan(P)  |
@@ -124,7 +363,7 @@ class Pelanggan {
   String idPelanggan;          // kode unik identitas pelanggan
   String alamat;                // alamat pelanggan untuk pengiriman
   int totalPesanan;            // jumlah pesanan yang berhasil dibuat
-  List<Pesanan> riwayatPesanan = []; // daftar objek Pesanan yang berhasil
+  List&lt;Pesanan&gt; riwayatPesanan = []; // daftar objek Pesanan yang berhasil
 
   // ---------------- CONSTRUCTOR ----------------
   Pelanggan(this.nama, this.idPelanggan, this.alamat)
@@ -269,7 +508,7 @@ void main() {
   // ==========================
   // DATA PESANAN (12 PESANAN)
   // ==========================
-  List<Pesanan> daftarPesanan = [
+  List&lt;Pesanan&gt; daftarPesanan = [
     Pesanan("ORD001", p1, m1, 2),
     Pesanan("ORD002", p2, m2, 1),
     Pesanan("ORD003", p3, m3, 2),
@@ -311,7 +550,7 @@ void main() {
   // MENAMPILKAN DATA PELANGGAN
   // ==========================
   print("\n===== DATA PELANGGAN =====");
-  List<Pelanggan> pelanggan = [
+  List&lt;Pelanggan&gt; pelanggan = [
     p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12
   ];
 
@@ -319,4 +558,118 @@ void main() {
     p.tampilkanInfo();
     print("");
   }
-}
+}</code></pre>
+    <button class="btn-run" data-src="https://dartpad.dev/embed-dart.html?id=d8e167c575debe1699323032c7cc3e84&amp;run=true">Lihat Program</button>
+  </div>
+  <div class="card">
+    <h2>kesimpulan</h2>
+    <p>- Sistem Pemesanan Makanan Online adalah contoh masalah nyata yang sangat tepat diselesaikan menggunakan OOP, karena:</p>
+    <p>- Setiap entitas dalam sistem bisa dimodelkan sebagai class dengan atribut dan method yang jelas, yaitu MenuMakanan, Pelanggan, dan Pesanan</p>
+    <p>- <strong>Konsep enkapsulasi</strong> menjaga data agar tidak diubah sembarangan. Status menu hanya bisa diubah lewat method yang sudah ditentukan.</p>
+    <p>- <strong>Konsep abstraksi</strong> membuat kode lebih sederhana di sisi pengguna. Cukup panggil satu method, sistem menangani prosesnya sendiri.</p>
+    <p>- <strong>Interaksi antar objek</strong> dalam sistem ini mencerminkan bagaimana dunia nyata bekerja, di mana pelanggan berinteraksi dengan pesanan, dan pesanan berinteraksi dengan menu makanan.</p>
+    <br>
+    <p>Dengan menggunakan OOP, kode menjadi lebih terstruktur, mudah dipahami, dan mudah dikembangkan di masa mendatang.</p>
+  </div>
+
+</div>
+
+<footer>
+  <p>📁 tugas 13 – | Dibuat untuk GitHub Pages</p>
+  <p>Ratu Klarisa Rahadianti — 251410010 — SI2A</p>
+  <p>Alicia Putri Lestari — 251410011 — SI2A</p>
+</footer>
+
+<div id="codeModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 id="modalTitle">DartPad Runner</h3>
+      <span class="close" id="closeModalBtn">&times;</span>
+    </div>
+    <div class="modal-body">
+      <iframe id="dartpadIframe" title="DartPad" src="about:blank"></iframe>
+    </div>
+  </div>
+</div>
+
+<script>
+  const modal = document.getElementById('codeModal');
+  const modalIframe = document.getElementById('dartpadIframe');
+  const closeBtn = document.getElementById('closeModalBtn');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalBody = document.querySelector('.modal-body');
+
+  function openDartPad(embedUrl, programTitle) {
+    while (modalBody.firstChild) {
+      modalBody.removeChild(modalBody.firstChild);
+    }
+    modalIframe.style.display = 'block';
+    modalBody.appendChild(modalIframe);
+    modalIframe.src = embedUrl;
+    modalTitle.innerText = programTitle;
+    modal.style.display = 'flex';
+  }
+
+  window.openImage = function(imgUrl) {
+    while (modalBody.firstChild) {
+      modalBody.removeChild(modalBody.firstChild);
+    }
+    modalIframe.style.display = 'none';
+    const img = document.createElement('img');
+    img.src = imgUrl;
+    img.alt = 'Capture Gambar';
+    img.style.maxWidth = '100%';
+    img.style.maxHeight = '70vh';
+    img.style.width = 'auto';
+    img.style.height = 'auto';
+    img.style.display = 'block';
+    img.style.margin = 'auto';
+    img.style.borderRadius = '12px';
+    img.style.boxShadow = '0 0 20px rgba(0,0,0,0.5)';
+    img.style.objectFit = 'contain';
+    img.onerror = () => {
+      img.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 24 24" fill="none" stroke="red" stroke-width="2"%3E%3Crect x="2" y="2" width="20" height="20" rx="2" /%3E%3Cpath d="M8 8 L16 16 M16 8 L8 16" /%3E%3Ctext x="12" y="20" font-size="8" text-anchor="middle" fill="red"%3EGagal load%3C/text%3E%3C/svg%3E';
+      img.style.width = '150px';
+      img.style.height = 'auto';
+    };
+    modalBody.appendChild(img);
+    modalTitle.innerText = '📸 Capture Gambar';
+    modal.style.display = 'flex';
+  };
+
+  document.querySelectorAll('.btn-run').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const src = btn.getAttribute('data-src');
+      if (src) {
+        e.preventDefault();
+        const card = btn.closest('.card');
+        const programName = card?.querySelector('h2')?.innerText || 'Program Dart';
+        openDartPad(src, programName);
+      }
+    });
+  });
+
+  closeBtn.addEventListener('click', () => {
+    modal.style.display = 'none';
+    modalIframe.src = 'about:blank';
+    while (modalBody.firstChild) {
+      modalBody.removeChild(modalBody.firstChild);
+    }
+    modalIframe.style.display = 'block';
+    modalBody.appendChild(modalIframe);
+  });
+
+  window.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.style.display = 'none';
+      modalIframe.src = 'about:blank';
+      while (modalBody.firstChild) {
+        modalBody.removeChild(modalBody.firstChild);
+      }
+      modalIframe.style.display = 'block';
+      modalBody.appendChild(modalIframe);
+    }
+  });
+</script>
+</body>
+</html>
