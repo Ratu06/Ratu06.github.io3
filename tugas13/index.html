@@ -304,7 +304,31 @@
        Selanjutnya sistem menampilkan daftar menu dan memproses setiap pesanan yang dibuat oleh pelanggan. Sistem akan memeriksa ketersediaan menu untuk
         menentukan status pesanan. Jika menu tersedia, pesanan akan berhasil diproses dan disimpan ke dalam riwayat pelanggan. Jika menu tidak tersedia, 
         pesanan akan dinyatakan gagal. Setelah seluruh pesanan diproses, sistem menampilkan struk pesanan serta data pelanggan beserta riwayat pesanan dan total belanjanya.</p>
-  <img src="flowcartsemu.jpeg" alt="Flowchart" class="diagram-img" onclick="openImage('flowcartsemu.jpeg')">
+<pre><code>MULAI
+
+Buat data menu makanan
+Buat data pelanggan
+Buat daftar pesanan (pelanggan, menu, jumlah)
+
+Tampilkan seluruh menu
+
+Untuk setiap pesanan dalam daftar lakukan
+    Proses pesanan
+
+    Jika menu tersedia maka
+        status ← "Berhasil"
+        Tambah pesanan ke riwayat pelanggan
+        totalPesanan ← totalPesanan + 1
+    Jika tidak maka
+        status ← "Gagal"
+    EndJika
+
+    Tampilkan struk pesanan
+EndUntuk
+
+Tampilkan data seluruh pelanggan beserta riwayat dan total belanja
+
+SELESAI</code></pre>
   </div>
   
 
