@@ -162,6 +162,51 @@
       border-radius: 1rem;
       background: #fefefe;
     }
+    <head>
+  <meta charset="UTF-8">
+  <title>sistem Pemesanan Makanan Online</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    
+    /* CSS yang sudah ada di sini ... */
+    
+    .btn-run {
+      background: #2563eb;
+      /* ... */
+    }
+    
+    /* ===== TAMBAHKAN KODE DI BAWAH INI ===== */
+    .diagram-img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 15px auto;     /* <- ini yang bikin gambar ke tengah */
+      border-radius: 8px;
+      border: 1px solid #2d3a5e;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .diagram-img:hover {
+      transform: scale(1.02);
+    }
+
+    .btn-image {
+      background: #22c55e;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.4rem;
+      border-radius: 2rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+      transition: all 0.2s;
+    }
+    .btn-image:hover {
+      background: #16a34a;
+      transform: translateY(-2px);
+    }
+    
   </style>
 </head>
 <body>
@@ -236,93 +281,40 @@
   </div>
 
   <div class="card">
+    <h2>Class Diagram</h2>
+    <p>Class Diagram ini menggambarkan struktur dan hubungan antar kelas pada sistem pemesanan makanan online. Sistem terdiri dari tiga kelas utama, 
+      yaitu MenuMakanan, Pelanggan, dan Pesanan. Kelas MenuMakanan digunakan untuk mengelola data menu yang tersedia, kelas Pelanggan digunakan untuk
+       menyimpan data pelanggan dan riwayat pesanan, sedangkan kelas Pesanan digunakan untuk mengelola transaksi pemesanan. Hubungan antar kelas menunjukkan
+        bahwa satu pelanggan dapat memiliki banyak pesanan, dan setiap pesanan terhubung dengan satu menu makanan yang dipilih oleh pelanggan.</p>
+    <img src="classtugas13.jpeg" alt="Flowchart" class="diagram-img" onclick="openImage('classtugas13.jpeg')">
+  </div>
+
+  <div class="card">
+    <h2>Flowchart</h2>
+    <p>Flowchart ini menggambarkan alur sistem pemesanan makanan online, dimulai dari proses inisialisasi data menu, data pelanggan, dan data pesanan
+     Selanjutnya sistem menampilkan daftar menu dan memproses setiap pesanan yang dibuat pelanggan. Sistem akan memeriksa ketersediaan menu untuk menentukan status pesanan.
+      Jika menu tersedia, pesanan akan berhasil diproses dan disimpan ke dalam riwayat pelanggan. Jika menu tidak tersedia, pesanan akan dinyatakan gagal. Setelah itu sistem
+       mencetak struk pesanan dan menampilkan data seluruh pelanggan beserta riwayat pesanan dan total belanjanya.</p>
+  <img src="flowcart.jpeg" alt="Flowchart" class="diagram-img" onclick="openImage('flowcart.jpeg')">
+  </div>
+
+  <div class="card">
+    <h2>Flowchart Kode Semu</h2>
+    <p>Kode semu ini menggambarkan langkah-langkah logika pada sistem pemesanan makanan online, dimulai dari pembuatan data menu, pelanggan, dan pesanan.
+       Selanjutnya sistem menampilkan daftar menu dan memproses setiap pesanan yang dibuat oleh pelanggan. Sistem akan memeriksa ketersediaan menu untuk
+        menentukan status pesanan. Jika menu tersedia, pesanan akan berhasil diproses dan disimpan ke dalam riwayat pelanggan. Jika menu tidak tersedia, 
+        pesanan akan dinyatakan gagal. Setelah seluruh pesanan diproses, sistem menampilkan struk pesanan serta data pelanggan beserta riwayat pesanan dan total belanjanya.</p>
+  <img src="flowcartsemu.jpeg" alt="Flowchart" class="diagram-img" onclick="openImage('flowcartsemu.jpeg')">
+  </div>
+  
+
+  <div class="card">
     <h2>IMPLEMENTASI SOURCE CODE DALAM DART</h2>
-    <pre><code>// ======================================================
+    <pre><code>
 // NAMA : Ratu Klarisa Rahadianti (251410010)
 // NAMA : Alicia Putri Lestari (251410011)
 // KELAS: SI2A
-// PROJECT : Sistem Pemesanan Makanan Online (OOP Dart)
-// ======================================================
-      /*
-========================================================
-CLASS DIAGRAM
-========================================================
-+-------------------+       +-------------------+
-|   MenuMakanan     |       |    Pelanggan      |
-+-------------------+       +-------------------+
-| - nama: String    |       | - nama: String    |
-| - harga: double   |       | - idPelanggan: Str|
-| - kategori: String|       | - alamat: String  |
-| - tersedia: bool  |       | - totalPesanan: int|
-+-------------------+       | - riwayatPesanan: |
-| + tampilkanInfo() |       |   List&lt;Pesanan&gt;  |
-| + tandaiHabis()   |       +-------------------+
-| + tandaiTersedia()|       | + tampilkanInfo() |
-+-------------------+       | + buatPesanan(P)  |
-         |                  +-------------------+
-         | 1                       1 |
-         |                           |
-         |                           | *
-         |                           |
-         +--------+  +--------------+
-                  |  |
-              +---+--+
-              | Pesanan |
-              +---------+
-              | - idPesanan: String
-              | - pelanggan: Pelanggan
-              | - menu: MenuMakanan
-              | - jumlah: int
-              | - totalHarga: double
-              | - status: String
-              +---------+
-              | + prosesPesanan()
-              | + tampilkanStruk()
-              +---------+
 
-Relasi:
-- Pelanggan 1 -- * Pesanan (satu pelanggan memiliki banyak pesanan)
-- Pesanan 1 -- 1 MenuMakanan (setiap pesanan merujuk ke satu menu)
-- Pesanan 1 -- 1 Pelanggan (setiap pesanan dimiliki oleh satu pelanggan)
-
-========================================================
-FLOWCHART (ALUR PROGRAM)
-========================================================
-Mulai
-  |
-  v
-Inisialisasi daftar menu (5 menu)
-  |
-  v
-Inisialisasi daftar pelanggan (12 pelanggan)
-  |
-  v
-Buat daftar pesanan (12 pesanan) dengan data pelanggan, menu, dan jumlah
-  |
-  v
-Tampilkan daftar menu
-  |
-  v
-Untuk setiap pesanan dalam daftar:
-  - Panggil pelanggan.buatPesanan(pesanan)
-      -> di dalam: panggil pesanan.prosesPesanan()
-          -> cek status ketersediaan menu
-          -> jika tersedia, status = "Berhasil", tambah ke riwayat pelanggan
-          -> jika tidak, status = "Gagal"
-  - Tampilkan struk pesanan
-  |
-  v
-Tampilkan data semua pelanggan beserta riwayat pesanan dan total belanja
-  |
-  v
-Selesai
-========================================================
-*/
-
-// ======================================================
-// CLASS MENU MAKANAN
-// Berfungsi menyimpan & mengelola data menu makanan/minuman
-// yang dijual, termasuk status ketersediaan stoknya.
 // ======================================================
 class MenuMakanan {
   // ---------------- PROPERTI ----------------
